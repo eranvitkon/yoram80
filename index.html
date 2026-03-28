@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>יום הולדת 80 לסבא יורם 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #2D5A3D;
+      --green-light: #E8F4EC;
+      --green-mid: #4a7c5f;
+      --red: #C8432A;
+      --cream: #F9F6F1;
+      --cream-dark: #EDE8E1;
+      --text: #1a2e22;
+      --text-muted: #6b7c72;
+      --white: #ffffff;
+      --radius: 14px;
+      --shadow: 0 2px 16px rgba(45,90,61,0.10);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--green);
+      color: var(--white);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .header-logo {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .header-logo span { color: #C8e8b5; }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-header {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-header:hover { background: rgba(255,255,255,0.25); }
+    .btn-header.primary { background: var(--red); border-color: var(--red); }
+    .btn-header.primary:hover { background: #b03825; }
+    #user-name-display { color: #C8e8b5; font-size: 14px; font-weight: 500; }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--green);
+      color: white;
+      text-align: center;
+      padding: 40px 20px 50px;
+    }
+    .hero-photo-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.4);
+      margin: 0 auto 20px;
+      overflow: hidden;
+      background: var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder { font-size: 48px; }
+    .hero h1 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .hero-sub { font-size: 16px; opacity: 0.85; margin-bottom: 24px; }
+    .events-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .event-pill {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-dark);
+      position: sticky;
+      top: 57px;
+      z-index: 90;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .tab {
+      flex: 1;
+      padding: 14px 8px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+    /* ── Main container ── */
+    .container { max-width: 800px; margin: 0 auto; padding: 20px 16px; }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .filter-chip {
+      background: var(--white);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-family: 'Heebo', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+    .filter-chip.active { background: var(--green); color: white; border-color: var(--green); }
+
+    /* ── Upload button ── */
+    .upload-fab {
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      left: 20px;
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 28px;
+      padding: 14px 22px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(200,67,42,0.4);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .upload-fab:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(200,67,42,0.5); }
+    .upload-fab.hidden { display: none; }
+
+    /* ── Photo grid ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    @media (min-width: 600px) { .photo-grid { grid-template-columns: repeat(3, 1fr); } }
+    .photo-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+    .photo-card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .photo-card img:hover { transform: scale(1.02); }
+    .photo-card-body { padding: 10px 12px; }
+    .photo-uploader { font-size: 13px; font-weight: 500; color: var(--green); }
+    .photo-caption { font-size: 13px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .photo-tag { font-size: 11px; background: var(--green-light); color: var(--green); border-radius: 10px; padding: 2px 8px; display: inline-block; margin-top: 4px; }
+    .photo-actions { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-top: 1px solid var(--cream-dark); }
+    .like-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      color: var(--text-muted);
+      font-family: 'Heebo', sans-serif;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .like-btn.liked { color: var(--red); }
+    .like-btn svg { width: 18px; height: 18px; transition: transform 0.15s; }
+    .like-btn.liked svg { transform: scale(1.2); }
+    .comment-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 13px; color: var(--text-muted); font-family: 'Heebo', sans-serif;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .admin-del-btn {
+      margin-right: auto;
+      background: none; border: none; cursor: pointer;
+      color: #ccc; font-size: 12px; font-family: 'Heebo', sans-serif;
+    }
+    .admin-del-btn:hover { color: var(--red); }
+
+    /* ── Memories ── */
+    .memory-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+      animation: fadeIn 0.3s ease;
+      border-right: 4px solid var(--green);
+    }
+    .memory-author { font-weight: 700; color: var(--green); font-size: 15px; }
+    .memory-tag { font-size: 11px; background: var(--green-light); color: var(--green); border-radius: 10px; padding: 2px 8px; display: inline-block; margin-bottom: 8px; }
+    .memory-content { font-size: 15px; line-height: 1.6; color: var(--text); }
+    .memory-time { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+    /* ── Modals ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 300;
+      display: flex; align-items: flex-end;
+      animation: overlayIn 0.2s ease;
+    }
+    @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-overlay.hidden { display: none; }
+    .modal {
+      background: var(--white);
+      width: 100%;
+      max-height: 90vh;
+      border-radius: 20px 20px 0 0;
+      padding: 24px 20px;
+      padding-bottom: calc(24px + env(safe-area-inset-bottom));
+      overflow-y: auto;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(30px); } to { transform: translateY(0); } }
+    @media (min-width: 600px) {
+      .modal-overlay { align-items: center; }
+      .modal { border-radius: 20px; max-width: 480px; margin: auto; }
+    }
+    .modal-handle { width: 36px; height: 4px; background: var(--cream-dark); border-radius: 2px; margin: 0 auto 20px; }
+    .modal h2 { font-family: 'Frank Ruhl Libre', serif; font-size: 22px; margin-bottom: 20px; color: var(--text); }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--text); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 10px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--cream);
+      transition: border-color 0.2s;
+      direction: rtl;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--green);
+    }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .btn-primary {
+      width: 100%; padding: 14px;
+      background: var(--green); color: white;
+      border: none; border-radius: 12px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .btn-primary:hover { background: var(--green-mid); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-secondary {
+      width: 100%; padding: 12px;
+      background: none; color: var(--text-muted);
+      border: 1.5px solid var(--cream-dark); border-radius: 12px;
+      font-family: 'Heebo', sans-serif; font-size: 15px;
+      cursor: pointer; margin-top: 10px;
+    }
+    .form-error { color: var(--red); font-size: 13px; margin-top: 6px; }
+    .form-switch { text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); }
+    .form-switch a { color: var(--green); cursor: pointer; font-weight: 500; }
+
+    /* ── Photo lightbox ── */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .lightbox.hidden { display: none; }
+    .lightbox img { max-width: 95vw; max-height: 70vh; object-fit: contain; border-radius: 8px; }
+    .lightbox-close { position: absolute; top: 20px; left: 20px; color: white; font-size: 28px; cursor: pointer; background: none; border: none; }
+    .lightbox-comments { background: white; width: 100%; max-width: 500px; border-radius: 16px 16px 0 0; padding: 16px 20px; max-height: 35vh; overflow-y: auto; margin-top: 12px; }
+    @media (min-width: 600px) { .lightbox-comments { border-radius: 16px; } }
+    .comment-item { padding: 8px 0; border-bottom: 1px solid var(--cream-dark); font-size: 14px; }
+    .comment-item:last-child { border-bottom: none; }
+    .comment-name { font-weight: 700; color: var(--green); font-size: 13px; }
+    .comment-input-row { display: flex; gap: 8px; margin-top: 10px; }
+    .comment-input-row input { flex: 1; padding: 10px 12px; border: 1.5px solid var(--cream-dark); border-radius: 8px; font-family: 'Heebo', sans-serif; font-size: 14px; direction: rtl; }
+    .comment-input-row button { background: var(--green); color: white; border: none; border-radius: 8px; padding: 10px 16px; font-family: 'Heebo', sans-serif; font-size: 14px; cursor: pointer; }
+
+    /* ── Upload photo preview ── */
+    .photo-preview-wrap { position: relative; margin-top: 8px; }
+    .photo-preview { width: 100%; border-radius: 10px; display: none; max-height: 200px; object-fit: cover; }
+    .upload-area {
+      border: 2px dashed var(--green-mid);
+      border-radius: 10px;
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+    .upload-area:hover { background: var(--green-light); }
+    .upload-area-icon { font-size: 32px; margin-bottom: 8px; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; top: 80px; right: 16px; left: 16px;
+      background: var(--green); color: white;
+      padding: 14px 18px; border-radius: 12px;
+      font-size: 15px; font-weight: 500;
+      z-index: 500; text-align: center;
+      animation: toastIn 0.3s ease;
+      max-width: 400px; margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .toast.error { background: var(--red); }
+    .toast.hidden { display: none; }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; } }
+
+    /* ── Notification banner ── */
+    .notif-banner {
+      position: fixed; top: 70px; right: 16px; left: 16px;
+      background: var(--green); color: white;
+      padding: 14px 18px; border-radius: 12px;
+      font-size: 14px; z-index: 490;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      animation: toastIn 0.3s ease;
+      cursor: pointer;
+      max-width: 400px; margin: 0 auto;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .notif-banner.hidden { display: none; }
+
+    /* ── Empty state ── */
+    .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state p { font-size: 16px; }
+
+    /* ── Admin tab ── */
+    .admin-section { margin-bottom: 28px; }
+    .admin-section h3 { font-family: 'Frank Ruhl Libre', serif; font-size: 19px; margin-bottom: 14px; color: var(--green); }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .admin-table th { background: var(--green-light); color: var(--green); padding: 10px 12px; text-align: right; font-weight: 700; }
+    .admin-table td { padding: 10px 12px; border-bottom: 1px solid var(--cream-dark); }
+    .del-btn { background: none; border: none; color: var(--red); cursor: pointer; font-size: 13px; font-family: 'Heebo', sans-serif; }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-logo">יורם <span>80</span> 🎂</div>
+    <div class="header-actions">
+      <span id="user-name-display"></span>
+      <button class="btn-header" id="auth-btn" onclick="openAuthModal()">כניסה</button>
+      <button class="btn-header hidden" id="logout-btn" onclick="logout()">יציאה</button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-photo-wrap">
+    <img src="/uploads/yoram-hero.jpg" alt="סבא יורם" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <span class="hero-photo-placeholder" style="display:none">👴</span>
+  </div>
+  <h1>יום הולדת 80<br>לסבא יורם!</h1>
+  <p class="hero-sub">פסח תשפ"ה • משפחה ביחד ❤️</p>
+  <div class="events-row">
+    <div class="event-pill">🕍 ליל סדר — א׳ אפריל</div>
+    <div class="event-pill">🌭 נקניקיות — חמישי</div>
+    <div class="event-pill">👨‍🍳 ארוחת שף — שישי</div>
+  </div>
+</section>
+
+<!-- Tabs -->
+<div class="tabs" id="main-tabs">
+  <div class="tab active" onclick="switchTab('photos')">📸 גלריה</div>
+  <div class="tab" onclick="switchTab('memories')">✍️ זיכרונות</div>
+  <div class="tab hidden" id="admin-tab" onclick="switchTab('admin')">🛡️ אדמין</div>
+</div>
+
+<!-- Photos tab -->
+<div class="container" id="tab-photos">
+  <div class="filter-bar">
+    <button class="filter-chip active" onclick="filterPhotos('all', this)">הכל</button>
+    <button class="filter-chip" onclick="filterPhotos('seder', this)">🕍 ליל סדר</button>
+    <button class="filter-chip" onclick="filterPhotos('nknikyot', this)">🌭 נקניקיות</button>
+    <button class="filter-chip" onclick="filterPhotos('chef', this)">👨‍🍳 ארוחת שף</button>
+  </div>
+  <div class="photo-grid" id="photo-grid">
+    <div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-icon">📷</div>
+      <p>עוד אין תמונות — היו הראשונים!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Memories tab -->
+<div class="container hidden" id="tab-memories">
+  <div id="memories-list"></div>
+  <div style="text-align:center; margin-top: 20px;">
+    <button class="btn-primary" style="width:auto; padding: 12px 28px" onclick="openMemoryModal()">✍️ שתף זיכרון</button>
+  </div>
+</div>
+
+<!-- Admin tab -->
+<div class="container hidden" id="tab-admin">
+  <div class="admin-section">
+    <h3>משתמשים רשומים</h3>
+    <div style="overflow-x:auto">
+      <table class="admin-table" id="admin-users-table">
+        <thead><tr><th>שם</th><th>מייל</th><th>נרשם</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="admin-section">
+    <h3>תמונות</h3>
+    <div class="photo-grid" id="admin-photo-grid"></div>
+  </div>
+  <div class="admin-section">
+    <h3>זיכרונות</h3>
+    <div id="admin-memories-list"></div>
+  </div>
+</div>
+
+<!-- Upload FAB -->
+<button class="upload-fab hidden" id="upload-fab" onclick="openUploadModal()">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  העלאת תמונה
+</button>
+
+<!-- Auth Modal -->
+<div class="modal-overlay hidden" id="auth-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2 id="auth-title">כניסה לאירוע</h2>
+    <div id="login-form">
+      <div class="form-group"><label>כתובת מייל</label><input type="email" id="login-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>סיסמה</label><input type="password" id="login-password" placeholder="••••••"></div>
+      <div class="form-error hidden" id="login-error"></div>
+      <button class="btn-primary" onclick="submitLogin()">כניסה</button>
+      <div class="form-switch">אין לך חשבון? <a onclick="showRegister()">הרשמה</a></div>
+    </div>
+    <div id="register-form" class="hidden">
+      <div class="form-group"><label>שם מלא</label><input type="text" id="reg-name" placeholder="שם ומשפחה"></div>
+      <div class="form-group"><label>כתובת מייל</label><input type="email" id="reg-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>סיסמה (6 תווים לפחות)</label><input type="password" id="reg-password" placeholder="••••••"></div>
+      <div class="form-error hidden" id="reg-error"></div>
+      <button class="btn-primary" onclick="submitRegister()">הרשמה</button>
+      <div class="form-switch">כבר יש לך חשבון? <a onclick="showLogin()">כניסה</a></div>
+    </div>
+    <button class="btn-secondary" onclick="closeModal('auth-modal')">ביטול</button>
+  </div>
+</div>
+
+<!-- Upload Modal -->
+<div class="modal-overlay hidden" id="upload-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2>העלאת תמונה</h2>
+    <div class="form-group">
+      <label>תמונה</label>
+      <div class="upload-area" onclick="document.getElementById('photo-file').click()">
+        <div class="upload-area-icon">📸</div>
+        <div>לחץ לבחירת תמונה</div>
+      </div>
+      <input type="file" id="photo-file" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+      <img id="photo-preview" class="photo-preview">
+    </div>
+    <div class="form-group">
+      <label>לאיזה אירוע שייכת?</label>
+      <select id="photo-event">
+        <option value="">— בחר אירוע —</option>
+        <option value="seder">🕍 ליל סדר</option>
+        <option value="nknikyot">🌭 ארוחת נקניקיות</option>
+        <option value="chef">👨‍🍳 ארוחת שף</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>כיתוב (אופציונלי)</label>
+      <input type="text" id="photo-caption" placeholder="תיאור קצר...">
+    </div>
+    <div class="form-error hidden" id="upload-error"></div>
+    <button class="btn-primary" id="upload-submit-btn" onclick="submitPhoto()">העלאה</button>
+    <button class="btn-secondary" onclick="closeModal('upload-modal')">ביטול</button>
+  </div>
+</div>
+
+<!-- Memory Modal -->
+<div class="modal-overlay hidden" id="memory-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h2>שיתוף זיכרון</h2>
+    <div class="form-group">
+      <label>לאיזה אירוע?</label>
+      <select id="memory-event">
+        <option value="">— בחר אירוע —</option>
+        <option value="seder">🕍 ליל סדר</option>
+        <option value="nknikyot">🌭 ארוחת נקניקיות</option>
+        <option value="chef">👨‍🍳 ארוחת שף</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>הזיכרון שלך</label>
+      <textarea id="memory-content" placeholder="שתף רגע מיוחד מהחגיגה..."></textarea>
+    </div>
+    <div class="form-error hidden" id="memory-error"></div>
+    <button class="btn-primary" onclick="submitMemory()">שמירה</button>
+    <button class="btn-secondary" onclick="closeModal('memory-modal')">ביטול</button>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox hidden" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-comments" id="lightbox-comments">
+    <div id="comments-list"></div>
+    <div class="comment-input-row hidden" id="comment-input-row">
+      <input type="text" id="comment-input" placeholder="הוסף תגובה..." onkeydown="if(event.key==='Enter') submitComment()">
+      <button onclick="submitComment()">שלח</button>
+    </div>
+    <div id="comment-login-msg" style="text-align:center;font-size:13px;color:#999;margin-top:8px"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast hidden" id="toast"></div>
+
+<!-- Notification banner -->
+<div class="notif-banner hidden" id="notif-banner" onclick="dismissNotif()">
+  <span style="font-size:20px">📸</span>
+  <span id="notif-text"></span>
+</div>
+
+<script>
+let currentUser = null;
+let allPhotos = [];
+let currentFilter = 'all';
+let currentPhotoId = null;
+let ws;
+
+const EVENT_LABELS = {
+  seder: '🕍 ליל סדר',
+  nknikyot: '🌭 נקניקיות',
+  chef: '👨‍🍳 ארוחת שף'
+};
+
+// ── WebSocket ──────────────────────────────────────────────────────────────
+function connectWS() {
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  ws = new WebSocket(`${proto}://${location.host}`);
+  ws.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    handleWSMessage(msg);
+  };
+  ws.onclose = () => setTimeout(connectWS, 3000);
+}
+
+function handleWSMessage(msg) {
+  if (msg.type === 'new_photo') {
+    allPhotos.unshift(msg.photo);
+    renderPhotos();
+    if (currentUser && msg.photo.user_id !== currentUser.userId) {
+      showNotif(`${msg.photo.uploader_name} העלה/ה תמונה חדשה! 📸`);
+    }
+  } else if (msg.type === 'delete_photo') {
+    allPhotos = allPhotos.filter(p => p.id !== msg.photoId);
+    renderPhotos();
+    if (currentPhotoId === msg.photoId) closeLightbox();
+  } else if (msg.type === 'like_update') {
+    const photo = allPhotos.find(p => p.id === msg.photoId);
+    if (photo) {
+      photo.likes_count = msg.count;
+      const el = document.querySelector(`.like-count[data-pid="${msg.photoId}"]`);
+      if (el) el.textContent = msg.count;
+    }
+  } else if (msg.type === 'new_comment') {
+    const photo = allPhotos.find(p => p.id === msg.comment.photo_id);
+    if (photo) {
+      photo.comments_count = (photo.comments_count || 0) + 1;
+      const el = document.querySelector(`.comment-count[data-pid="${msg.comment.photo_id}"]`);
+      if (el) el.textContent = photo.comments_count;
+    }
+    if (currentPhotoId === msg.comment.photo_id) addCommentToList(msg.comment);
+  } else if (msg.type === 'delete_comment') {
+    const el = document.querySelector(`[data-cid="${msg.commentId}"]`);
+    if (el) el.remove();
+  } else if (msg.type === 'new_memory') {
+    renderMemoryCard(msg.memory, true);
+  } else if (msg.type === 'delete_memory') {
+    const el = document.querySelector(`[data-mid="${msg.memoryId}"]`);
+    if (el) el.remove();
+  }
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+async function init() {
+  await checkAuth();
+  await loadPhotos();
+  await loadMemories();
+  connectWS();
+}
+
+async function checkAuth() {
+  const r = await fetch('/api/me');
+  const data = await r.json();
+  if (data.loggedIn) {
+    currentUser = data;
+    updateAuthUI();
+  }
+}
+
+function updateAuthUI() {
+  if (currentUser) {
+    document.getElementById('user-name-display').textContent = `שלום, ${currentUser.name}`;
+    document.getElementById('auth-btn').classList.add('hidden');
+    document.getElementById('logout-btn').classList.remove('hidden');
+    document.getElementById('upload-fab').classList.remove('hidden');
+    if (currentUser.isAdmin) {
+      document.getElementById('admin-tab').classList.remove('hidden');
+    }
+  } else {
+    document.getElementById('user-name-display').textContent = '';
+    document.getElementById('auth-btn').classList.remove('hidden');
+    document.getElementById('logout-btn').classList.add('hidden');
+    document.getElementById('upload-fab').classList.add('hidden');
+    document.getElementById('admin-tab').classList.add('hidden');
+  }
+}
+
+// ── Auth ───────────────────────────────────────────────────────────────────
+function openAuthModal() { showModal('auth-modal'); showLogin(); }
+function showLogin() {
+  document.getElementById('auth-title').textContent = 'כניסה לאירוע';
+  document.getElementById('login-form').classList.remove('hidden');
+  document.getElementById('register-form').classList.add('hidden');
+}
+function showRegister() {
+  document.getElementById('auth-title').textContent = 'הרשמה לאירוע';
+  document.getElementById('login-form').classList.add('hidden');
+  document.getElementById('register-form').classList.remove('hidden');
+}
+
+async function submitLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.classList.add('hidden');
+  const r = await fetch('/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email, password}) });
+  const data = await r.json();
+  if (!r.ok) { errEl.textContent = data.error; errEl.classList.remove('hidden'); return; }
+  currentUser = { loggedIn: true, name: data.name, isAdmin: data.isAdmin };
+  const me = await (await fetch('/api/me')).json();
+  currentUser = me;
+  updateAuthUI();
+  closeModal('auth-modal');
+  showToast(`ברוך הבא, ${data.name}! 🎉`);
+}
+
+async function submitRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const errEl = document.getElementById('reg-error');
+  errEl.classList.add('hidden');
+  const r = await fetch('/api/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name, email, password}) });
+  const data = await r.json();
+  if (!r.ok) { errEl.textContent = data.error; errEl.classList.remove('hidden'); return; }
+  const me = await (await fetch('/api/me')).json();
+  currentUser = me;
+  updateAuthUI();
+  closeModal('auth-modal');
+  showToast(`ברוך הבא, ${name}! 🎉`);
+}
+
+async function logout() {
+  await fetch('/api/logout', { method:'POST' });
+  currentUser = null;
+  updateAuthUI();
+  showToast('להתראות! 👋');
+  if (document.getElementById('tab-admin').classList.contains('') && !document.getElementById('tab-admin').classList.contains('hidden')) {
+    switchTab('photos');
+  }
+}
+
+// ── Photos ─────────────────────────────────────────────────────────────────
+async function loadPhotos() {
+  const r = await fetch('/api/photos');
+  allPhotos = await r.json();
+  renderPhotos();
+}
+
+function filterPhotos(tag, el) {
+  currentFilter = tag;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderPhotos();
+}
+
+function renderPhotos() {
+  const grid = document.getElementById('photo-grid');
+  const filtered = currentFilter === 'all' ? allPhotos : allPhotos.filter(p => p.event_tag === currentFilter);
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📷</div><p>עוד אין תמונות — היו הראשונים!</p></div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map(p => photoCardHTML(p)).join('');
+}
+
+function photoCardHTML(p) {
+  const isAdmin = currentUser?.isAdmin;
+  const isLiked = false; // will refresh on open
+  return `
+    <div class="photo-card" id="pc-${p.id}">
+      <img src="/uploads/${p.filename}" alt="${p.caption || ''}" onclick="openLightbox(${p.id})" loading="lazy">
+      <div class="photo-card-body">
+        <div class="photo-uploader">${p.uploader_name}</div>
+        ${p.caption ? `<div class="photo-caption">${p.caption}</div>` : ''}
+        <div class="photo-tag">${EVENT_LABELS[p.event_tag] || p.event_tag}</div>
+      </div>
+      <div class="photo-actions">
+        <button class="like-btn" id="like-btn-${p.id}" onclick="toggleLike(${p.id}, event)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="like-count" data-pid="${p.id}">${p.likes_count || 0}</span>
+        </button>
+        <button class="comment-btn" onclick="openLightbox(${p.id})">
+          💬 <span class="comment-count" data-pid="${p.id}">${p.comments_count || 0}</span>
+        </button>
+        ${isAdmin ? `<button class="admin-del-btn" onclick="deletePhoto(${p.id})">🗑️ מחק</button>` : ''}
+      </div>
+    </div>`;
+}
+
+async function toggleLike(photoId, e) {
+  e.stopPropagation();
+  if (!currentUser) { openAuthModal(); return; }
+  const r = await fetch(`/api/photos/${photoId}/like`, { method:'POST' });
+  const data = await r.json();
+  const btn = document.getElementById(`like-btn-${photoId}`);
+  if (btn) btn.classList.toggle('liked', data.liked);
+}
+
+async function deletePhoto(photoId) {
+  if (!confirm('למחוק את התמונה?')) return;
+  await fetch(`/api/photos/${photoId}`, { method:'DELETE' });
+}
+
+// ── Lightbox ───────────────────────────────────────────────────────────────
+async function openLightbox(photoId) {
+  currentPhotoId = photoId;
+  const photo = allPhotos.find(p => p.id === photoId);
+  if (!photo) return;
+  document.getElementById('lightbox-img').src = `/uploads/${photo.filename}`;
+  document.getElementById('lightbox').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  if (currentUser) {
+    const liked = await (await fetch(`/api/photos/${photoId}/liked`)).json();
+    const btn = document.getElementById(`like-btn-${photoId}`);
+    if (btn) btn.classList.toggle('liked', liked.liked);
+  }
+
+  await loadComments(photoId);
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow = '';
+  currentPhotoId = null;
+}
+
+async function loadComments(photoId) {
+  const r = await fetch(`/api/photos/${photoId}/comments`);
+  const comments = await r.json();
+  const list = document.getElementById('comments-list');
+  list.innerHTML = comments.length === 0 ? '<p style="text-align:center;color:#999;font-size:13px">עוד אין תגובות</p>' : comments.map(c => commentHTML(c)).join('');
+
+  const inputRow = document.getElementById('comment-input-row');
+  const loginMsg = document.getElementById('comment-login-msg');
+  if (currentUser) {
+    inputRow.classList.remove('hidden');
+    loginMsg.textContent = '';
+  } else {
+    inputRow.classList.add('hidden');
+    loginMsg.textContent = 'כדי להגיב, יש להתחבר';
+  }
+}
+
+function commentHTML(c) {
+  const adminDel = currentUser?.isAdmin ? `<button class="del-btn" data-cid="${c.id}" onclick="deleteComment(${c.id})">מחק</button>` : '';
+  return `<div class="comment-item" data-cid="${c.id}"><span class="comment-name">${c.commenter_name}</span> ${adminDel}<div>${c.content}</div></div>`;
+}
+
+function addCommentToList(c) {
+  const list = document.getElementById('comments-list');
+  const empty = list.querySelector('p');
+  if (empty) empty.remove();
+  list.insertAdjacentHTML('beforeend', commentHTML(c));
+}
+
+async function submitComment() {
+  const input = document.getElementById('comment-input');
+  const content = input.value.trim();
+  if (!content) return;
+  input.value = '';
+  await fetch(`/api/photos/${currentPhotoId}/comments`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content}) });
+}
+
+async function deleteComment(id) {
+  await fetch(`/api/comments/${id}`, { method:'DELETE' });
+}
+
+// ── Upload ─────────────────────────────────────────────────────────────────
+function openUploadModal() {
+  if (!currentUser) { openAuthModal(); return; }
+  showModal('upload-modal');
+}
+
+function previewPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const preview = document.getElementById('photo-preview');
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = 'block';
+}
+
+async function submitPhoto() {
+  const file = document.getElementById('photo-file').files[0];
+  const event_tag = document.getElementById('photo-event').value;
+  const caption = document.getElementById('photo-caption').value;
+  const errEl = document.getElementById('upload-error');
+  errEl.classList.add('hidden');
+
+  if (!file) { errEl.textContent = 'נא לבחור תמונה'; errEl.classList.remove('hidden'); return; }
+  if (!event_tag) { errEl.textContent = 'נא לבחור אירוע'; errEl.classList.remove('hidden'); return; }
+
+  const btn = document.getElementById('upload-submit-btn');
+  btn.disabled = true; btn.textContent = 'מעלה...';
+
+  const fd = new FormData();
+  fd.append('photo', file);
+  fd.append('event_tag', event_tag);
+  fd.append('caption', caption);
+
+  const r = await fetch('/api/photos', { method:'POST', body: fd });
+  btn.disabled = false; btn.textContent = 'העלאה';
+
+  if (!r.ok) {
+    const data = await r.json();
+    errEl.textContent = data.error; errEl.classList.remove('hidden'); return;
+  }
+  closeModal('upload-modal');
+  document.getElementById('photo-file').value = '';
+  document.getElementById('photo-preview').style.display = 'none';
+  document.getElementById('photo-caption').value = '';
+  document.getElementById('photo-event').value = '';
+  showToast('התמונה הועלתה! 📸');
+}
+
+// ── Memories ───────────────────────────────────────────────────────────────
+async function loadMemories() {
+  const r = await fetch('/api/memories');
+  const memories = await r.json();
+  const list = document.getElementById('memories-list');
+  if (memories.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">✍️</div><p>עוד אין זיכרונות — שתף את הראשון!</p></div>`;
+    return;
+  }
+  list.innerHTML = memories.map(m => memoryHTML(m)).join('');
+}
+
+function memoryHTML(m) {
+  const adminDel = currentUser?.isAdmin ? `<button class="del-btn" onclick="deleteMemory(${m.id})">🗑️ מחק</button>` : '';
+  const time = new Date(m.created_at).toLocaleString('he-IL');
+  return `<div class="memory-card" data-mid="${m.id}">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+      <span class="memory-author">${m.author_name}</span>${adminDel}
+    </div>
+    <div class="memory-tag">${EVENT_LABELS[m.event_tag] || m.event_tag}</div>
+    <div class="memory-content">${m.content}</div>
+    <div class="memory-time">${time}</div>
+  </div>`;
+}
+
+function renderMemoryCard(m, prepend = false) {
+  const list = document.getElementById('memories-list');
+  const empty = list.querySelector('.empty-state');
+  if (empty) empty.remove();
+  const html = memoryHTML(m);
+  if (prepend) list.insertAdjacentHTML('afterbegin', html);
+  else list.insertAdjacentHTML('beforeend', html);
+}
+
+function openMemoryModal() {
+  if (!currentUser) { openAuthModal(); return; }
+  showModal('memory-modal');
+}
+
+async function submitMemory() {
+  const content = document.getElementById('memory-content').value.trim();
+  const event_tag = document.getElementById('memory-event').value;
+  const errEl = document.getElementById('memory-error');
+  errEl.classList.add('hidden');
+  if (!content) { errEl.textContent = 'נא לכתוב משהו'; errEl.classList.remove('hidden'); return; }
+  if (!event_tag) { errEl.textContent = 'נא לבחור אירוע'; errEl.classList.remove('hidden'); return; }
+  const r = await fetch('/api/memories', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content, event_tag}) });
+  if (!r.ok) { const d = await r.json(); errEl.textContent = d.error; errEl.classList.remove('hidden'); return; }
+  closeModal('memory-modal');
+  document.getElementById('memory-content').value = '';
+  document.getElementById('memory-event').value = '';
+  showToast('הזיכרון נשמר! ✍️');
+}
+
+async function deleteMemory(id) {
+  if (!confirm('למחוק את הזיכרון?')) return;
+  await fetch(`/api/memories/${id}`, { method:'DELETE' });
+}
+
+// ── Admin ──────────────────────────────────────────────────────────────────
+async function loadAdmin() {
+  const users = await (await fetch('/api/admin/users')).json();
+  const tbody = document.querySelector('#admin-users-table tbody');
+  tbody.innerHTML = users.map(u => `<tr><td>${u.name}${u.is_admin ? ' 🛡️' : ''}</td><td>${u.email}</td><td>${new Date(u.created_at).toLocaleDateString('he-IL')}</td></tr>`).join('');
+
+  const grid = document.getElementById('admin-photo-grid');
+  grid.innerHTML = allPhotos.map(p => `
+    <div class="photo-card">
+      <img src="/uploads/${p.filename}" style="width:100%;aspect-ratio:1;object-fit:cover">
+      <div class="photo-card-body" style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:13px">${p.uploader_name}</span>
+        <button class="del-btn" onclick="deletePhoto(${p.id})">🗑️ מחק</button>
+      </div>
+    </div>`).join('');
+
+  const mlist = document.getElementById('admin-memories-list');
+  const memories = await (await fetch('/api/memories')).json();
+  mlist.innerHTML = memories.map(m => memoryHTML(m)).join('');
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  ['photos','memories','admin'].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
+  });
+  const tabs = document.querySelectorAll('.tab');
+  const idx = ['photos','memories','admin'].indexOf(tab);
+  if (tabs[idx]) tabs[idx].classList.add('active');
+  document.getElementById('upload-fab').classList.toggle('hidden', tab !== 'photos' || !currentUser);
+  if (tab === 'admin') loadAdmin();
+}
+
+// ── UI helpers ─────────────────────────────────────────────────────────────
+function showModal(id) { document.getElementById(id).classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.body.style.overflow = ''; }
+
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', (e) => { if (e.target === el) closeModal(el.id); });
+});
+
+let toastTimer;
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast${isError ? ' error' : ''}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.add('hidden'), 3000);
+}
+
+let notifTimer;
+function showNotif(msg) {
+  const b = document.getElementById('notif-banner');
+  document.getElementById('notif-text').textContent = msg;
+  b.classList.remove('hidden');
+  clearTimeout(notifTimer);
+  notifTimer = setTimeout(dismissNotif, 5000);
+}
+function dismissNotif() { document.getElementById('notif-banner').classList.add('hidden'); }
+
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+
+init();
+</script>
+</body>
+</html>

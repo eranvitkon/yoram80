@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: yoram80
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    disk:
+      name: data
+      mountPath: /opt/render/project/src
+      sizeGB: 1
+    envVars:
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: FROM_EMAIL
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: SITE_URL
+        value: https://yoram80.onrender.com
