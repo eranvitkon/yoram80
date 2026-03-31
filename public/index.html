@@ -202,6 +202,8 @@
       <div class="reactions-area" data-aid="thu-bar"></div>
       <div class="agenda-row" data-aid="thu-memories"><div class="agenda-left"><div class="agenda-time">14:00</div><div class="agenda-icon">📖</div><div class="agenda-body"><div class="agenda-title">ספר הזיכרונות של סבא</div><div class="agenda-desc">פעילות מיוחדת עם רועי</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
       <div class="reactions-area" data-aid="thu-memories"></div>
+      <div class="agenda-row" data-aid="thu-pool3"><div class="agenda-left"><div class="agenda-time">15:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-pool3"></div>
       <div class="agenda-row" data-aid="thu-bbq"><div class="agenda-left"><div class="agenda-time">18:00</div><div class="agenda-icon">🌭</div><div class="agenda-body"><div class="agenda-title">ארוחת נקניקיות ובירה</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
       <div class="reactions-area" data-aid="thu-bbq"></div>
       <div class="agenda-row" data-aid="thu-singing"><div class="agenda-left"><div class="agenda-time">20:00</div><div class="agenda-icon">🎵</div><div class="agenda-body"><div class="agenda-title">ערב שירה בציבור עם נעמה</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
@@ -224,6 +226,8 @@
       <div class="reactions-area" data-aid="fri-bike"></div>
       <div class="agenda-row" data-aid="fri-ginosar"><div class="agenda-left"><div class="agenda-time">12:30</div><div class="agenda-icon">🌿</div><div class="agenda-body"><div class="agenda-title">טיול בגינוסר עם ליאור</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
       <div class="reactions-area" data-aid="fri-ginosar"></div>
+      <div class="agenda-row" data-aid="fri-pool"><div class="agenda-left"><div class="agenda-time">15:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-pool"></div>
       <div class="agenda-row" data-aid="fri-photo"><div class="agenda-left"><div class="agenda-time">16:00</div><div class="agenda-icon">📸</div><div class="agenda-body"><div class="agenda-title">צילומים עם צלמת מקצועית</div><div class="agenda-desc">לבוא עם בגדי פסטל</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
       <div class="reactions-area" data-aid="fri-photo"></div>
       <div class="agenda-row" data-aid="fri-chef"><div class="agenda-left"><div class="agenda-time">19:00</div><div class="agenda-icon">🍷</div><div class="agenda-body"><div class="agenda-title">ארוחת שף</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
@@ -302,12 +306,14 @@
     <div class="modal-handle"></div>
     <h2>העלאת תמונה 📸</h2>
     <div class="form-group">
-      <label>תמונה</label>
+      <label>תמונות</label>
       <div class="upload-area" onclick="document.getElementById('photo-file').click()">
-        <div class="upload-area-icon">📸</div><div>לחץ לבחירת תמונה</div>
+        <div class="upload-area-icon">📸</div>
+        <div>לחץ לבחירת תמונות</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">אפשר לבחור כמה תמונות ביחד</div>
       </div>
-      <input type="file" id="photo-file" accept="image/*" style="display:none" onchange="previewPhoto(this)">
-      <img id="photo-preview" class="photo-preview">
+      <input type="file" id="photo-file" accept="image/*" multiple style="display:none" onchange="previewPhotos(this)">
+      <div id="photo-previews" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
     </div>
     <div class="form-group">
       <label>לאיזה אירוע?</label>
@@ -606,23 +612,44 @@ async function submitComment(){const input=document.getElementById('comment-inpu
 async function deleteComment(id){await fetch(`/api/comments/${id}`,{method:'DELETE'});}
 
 function openUploadModal(){if(!currentUser){openAuthModal();return;}showModal('upload-modal');}
-function previewPhoto(input){const file=input.files[0];if(!file)return;const p=document.getElementById('photo-preview');p.src=URL.createObjectURL(file);p.style.display='block';}
+
+function previewPhotos(input){
+  const previews=document.getElementById('photo-previews');
+  previews.innerHTML='';
+  Array.from(input.files).forEach(file=>{
+    const img=document.createElement('img');
+    img.src=URL.createObjectURL(file);
+    img.style.cssText='width:72px;height:72px;object-fit:cover;border-radius:8px;border:1.5px solid var(--cream-dark)';
+    previews.appendChild(img);
+  });
+}
+
 async function submitPhoto(){
-  const file=document.getElementById('photo-file').files[0];
+  const files=Array.from(document.getElementById('photo-file').files);
   const event_tag=document.getElementById('photo-event').value;
   const caption=document.getElementById('photo-caption').value;
   const errEl=document.getElementById('upload-error');errEl.classList.add('hidden');
-  if(!file){errEl.textContent='נא לבחור תמונה';errEl.classList.remove('hidden');return;}
+  if(files.length===0){errEl.textContent='נא לבחור לפחות תמונה אחת';errEl.classList.remove('hidden');return;}
   if(!event_tag){errEl.textContent='נא לבחור אירוע';errEl.classList.remove('hidden');return;}
-  const btn=document.getElementById('upload-submit-btn');btn.disabled=true;btn.textContent='מעלה...';
-  const fd=new FormData();fd.append('photo',file);fd.append('event_tag',event_tag);fd.append('caption',caption);
-  const r=await fetch('/api/photos',{method:'POST',body:fd});
+  const btn=document.getElementById('upload-submit-btn');
+  btn.disabled=true;
+
+  let uploaded=0;let failed=0;
+  for(let i=0;i<files.length;i++){
+    btn.textContent=`מעלה ${i+1}/${files.length}...`;
+    const fd=new FormData();fd.append('photo',files[i]);fd.append('event_tag',event_tag);fd.append('caption',caption);
+    const r=await fetch('/api/photos',{method:'POST',body:fd});
+    if(r.ok)uploaded++;else failed++;
+  }
+
   btn.disabled=false;btn.textContent='העלאה';
-  if(!r.ok){const d=await r.json();errEl.textContent=d.error;errEl.classList.remove('hidden');return;}
   closeModal('upload-modal');
-  document.getElementById('photo-file').value='';document.getElementById('photo-preview').style.display='none';
-  document.getElementById('photo-caption').value='';document.getElementById('photo-event').value='';
-  showToast('התמונה הועלתה! 📸');
+  document.getElementById('photo-file').value='';
+  document.getElementById('photo-previews').innerHTML='';
+  document.getElementById('photo-caption').value='';
+  document.getElementById('photo-event').value='';
+  if(failed===0) showToast(`${uploaded} תמונות הועלו! 📸`);
+  else showToast(`הועלו ${uploaded}, נכשלו ${failed}`,true);
 }
 
 // ── Memories ───────────────────────────────────────────────────────────────
