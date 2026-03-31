@@ -58,6 +58,13 @@
     <div class="stat"><div class="stat-num" id="stat-memories">—</div><div class="stat-label">זיכרונות</div></div>
   </div>
 
+  <div class="section" style="border: 2px solid #fdecea;">
+    <h2 style="color:var(--red)">⚠️ איפוס לפני האירוע</h2>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px">מוחק את כל התמונות, הזיכרונות, הלייקים והתגובות. <strong>המשתמשים הרשומים נשמרים.</strong> פעולה זו בלתי הפיכה!</p>
+    <button class="btn btn-red" id="reset-btn" onclick="doReset()">🗑️ אפס את כל התוכן</button>
+    <div id="reset-msg" style="margin-top:10px;font-size:13px;display:none"></div>
+  </div>
+
   <div class="section">
     <h2>📸 תמונת יורם בעמוד הבית</h2>
     <div class="hero-upload">
@@ -97,6 +104,26 @@
 
 <script>
 const EVENT_LABELS = { seder:'🕍 ליל סדר', nknikyot:'🌭 נקניקיות', chef:'👨‍🍳 ארוחת שף' };
+
+async function doReset() {
+  if (!confirm('⚠️ האם אתה בטוח?\n\nפעולה זו תמחק לצמיתות:\n• כל התמונות\n• כל הזיכרונות\n• כל הלייקים והתגובות\n\nהמשתמשים הרשומים ישמרו.')) return;
+  if (!confirm('אישור סופי — האם למחוק את כל התוכן?')) return;
+  const btn = document.getElementById('reset-btn');
+  const msg = document.getElementById('reset-msg');
+  btn.disabled = true; btn.textContent = '⏳ מאפס...';
+  const r = await fetch('/api/admin/reset', { method: 'POST' });
+  const data = await r.json();
+  btn.disabled = false; btn.textContent = '🗑️ אפס את כל התוכן';
+  msg.style.display = 'block';
+  if (r.ok) {
+    msg.style.color = 'var(--green)';
+    msg.textContent = '✅ ' + data.message;
+    setTimeout(() => load(), 1000);
+  } else {
+    msg.style.color = 'var(--red)';
+    msg.textContent = '❌ ' + (data.error || 'שגיאה');
+  }
+}
 
 async function load() {
   const [users, photos, memories] = await Promise.all([
