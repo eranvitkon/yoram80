@@ -14,8 +14,18 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 const PORT = process.env.PORT || 3000;
-const uploadsDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
+
+// ── Persistent storage paths ──────────────────────────────────────────────────
+// On Render: DATA_DIR=/data (persistent disk)
+// Locally: falls back to __dirname
+const DATA_DIR = process.env.DATA_DIR || __dirname;
+const uploadsDir = path.join(DATA_DIR, 'uploads');
+const dbPath = path.join(DATA_DIR, 'yoram80.db');
+
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+
+// Pass dbPath to db module via env so db.js can use it
+process.env.DB_PATH = dbPath;
 
 const storage = multer.diskStorage({
   destination: uploadsDir,
@@ -76,13 +86,40 @@ app.get('/api/me', (req, res) => {
   res.json({ loggedIn: true, name: req.session.userName, isAdmin: req.session.isAdmin || false, userId: req.session.userId });
 });
 
+// ── RESET (admin only) ────────────────────────────────────────────────────────
+app.post('/api/admin/reset', requireAdmin, (req, res) => {
+  try {
+    // Delete all uploaded photos from disk
+    const photos = db.prepare('SELECT filename FROM photos').all();
+    photos.forEach(p => {
+      const fp = path.join(uploadsDir, p.filename);
+      if (fs.existsSync(fp)) {
+        try { fs.unlinkSync(fp); } catch(e) { console.error('Could not delete', fp); }
+      }
+    });
+
+    // Clear all content tables (keep users)
+    db.prepare('DELETE FROM activity_reactions').run();
+    db.prepare('DELETE FROM comments').run();
+    db.prepare('DELETE FROM likes').run();
+    db.prepare('DELETE FROM memories').run();
+    db.prepare('DELETE FROM photos').run();
+
+    // Reset auto-increment counters
+    db.prepare("DELETE FROM sqlite_sequence WHERE name IN ('photos','memories','likes','comments','activity_reactions')").run();
+
+    broadcast({ type: 'reset' });
+    console.log('[RESET] All content cleared by admin');
+    res.json({ success: true, message: 'האפליקציה אופסה בהצלחה' });
+  } catch(err) {
+    console.error('[RESET] Error:', err);
+    res.status(500).json({ error: 'שגיאה באיפוס: ' + err.message });
+  }
+});
+
 // ── Activity reactions ────────────────────────────────────────────────────────
 app.get('/api/reactions', (req, res) => {
-  const rows = db.prepare(`
-    SELECT activity_id, emoji, COUNT(*) as count
-    FROM activity_reactions GROUP BY activity_id, emoji
-  `).all();
-  // group by activity_id => { emoji: count }
+  const rows = db.prepare('SELECT activity_id, emoji, COUNT(*) as count FROM activity_reactions GROUP BY activity_id, emoji').all();
   const result = {};
   rows.forEach(r => {
     if (!result[r.activity_id]) result[r.activity_id] = {};
@@ -105,25 +142,20 @@ app.post('/api/reactions/:activityId', requireAuth, (req, res) => {
   if (!ALLOWED.includes(emoji)) return res.status(400).json({ error: 'אימוג\'י לא חוקי' });
 
   const existing = db.prepare('SELECT * FROM activity_reactions WHERE user_id = ? AND activity_id = ?').get(req.session.userId, activityId);
-
   if (existing && existing.emoji === emoji) {
-    // toggle off
     db.prepare('DELETE FROM activity_reactions WHERE user_id = ? AND activity_id = ?').run(req.session.userId, activityId);
   } else if (existing) {
-    // change emoji
     db.prepare('UPDATE activity_reactions SET emoji = ? WHERE user_id = ? AND activity_id = ?').run(emoji, req.session.userId, activityId);
   } else {
     db.prepare('INSERT INTO activity_reactions (user_id, activity_id, emoji) VALUES (?, ?, ?)').run(req.session.userId, activityId, emoji);
   }
 
-  // return updated counts for this activity
-  const counts = db.prepare('SELECT emoji, COUNT(*) as count FROM activity_reactions WHERE activity_id = ? GROUP BY emoji').all(activityId);
-  const countsMap = {};
-  counts.forEach(c => { countsMap[c.emoji] = c.count; });
+  const counts = {};
+  db.prepare('SELECT emoji, COUNT(*) as count FROM activity_reactions WHERE activity_id = ? GROUP BY emoji').all(activityId).forEach(c => { counts[c.emoji] = c.count; });
   const myEmoji = db.prepare('SELECT emoji FROM activity_reactions WHERE user_id = ? AND activity_id = ?').get(req.session.userId, activityId);
 
-  broadcast({ type: 'reaction_update', activityId, counts: countsMap });
-  res.json({ success: true, counts: countsMap, myEmoji: myEmoji?.emoji || null });
+  broadcast({ type: 'reaction_update', activityId, counts });
+  res.json({ success: true, counts, myEmoji: myEmoji?.emoji || null });
 });
 
 // ── Photos ────────────────────────────────────────────────────────────────────
@@ -235,4 +267,4 @@ app.get('/api/admin/users', requireAdmin, (req, res) => {
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-server.listen(PORT, () => console.log(`🎂 יורם 80 — פורט ${PORT}`));
+server.listen(PORT, () => console.log(`🎂 יורם 80 — פורט ${PORT} | data: ${DATA_DIR}`));
