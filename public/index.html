@@ -8,144 +8,158 @@
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #2D5A3D; --green-light: #E8F4EC; --green-mid: #4a7c5f;
-      --red: #C8432A; --cream: #F9F6F1; --cream-dark: #EDE8E1;
-      --text: #1a2e22; --text-muted: #6b7c72; --white: #ffffff;
-      --radius: 14px; --shadow: 0 2px 16px rgba(45,90,61,0.10);
+      --green:#2D5A3D;--green-light:#E8F4EC;--green-mid:#4a7c5f;
+      --red:#C8432A;--cream:#F9F6F1;--cream-dark:#EDE8E1;
+      --text:#1a2e22;--text-muted:#6b7c72;--white:#ffffff;
+      --radius:14px;--shadow:0 2px 16px rgba(45,90,61,0.10);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; padding-bottom: env(safe-area-inset-bottom); }
-    .hidden { display: none !important; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Heebo',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;padding-bottom:env(safe-area-inset-bottom);}
+    .hidden{display:none!important;}
 
-    .header { background: var(--green); color: var(--white); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
-    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; max-width: 800px; margin: auto; }
-    .header-logo { font-family: 'Frank Ruhl Libre', serif; font-size: 20px; font-weight: 700; }
-    .header-logo span { color: #C8e8b5; }
-    .header-actions { display: flex; gap: 10px; align-items: center; }
-    .btn-header { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 7px 14px; font-family: 'Heebo', sans-serif; font-size: 14px; cursor: pointer; transition: background 0.2s; }
-    .btn-header:hover { background: rgba(255,255,255,0.25); }
-    #user-name-display { color: #C8e8b5; font-size: 14px; font-weight: 500; }
+    /* Header */
+    .header{background:var(--green);color:var(--white);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;max-width:800px;margin:auto;}
+    .header-logo{font-family:'Frank Ruhl Libre',serif;font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;}
+    .header-logo img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.4);}
+    .header-logo span{color:#C8e8b5;}
+    .header-actions{display:flex;gap:8px;align-items:center;}
+    .btn-header{background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:6px 12px;font-family:'Heebo',sans-serif;font-size:13px;cursor:pointer;transition:background 0.2s;}
+    .btn-header:hover{background:rgba(255,255,255,0.25);}
+    #user-name-display{color:#C8e8b5;font-size:13px;font-weight:500;}
 
-    .hero { background: var(--green); color: white; text-align: center; padding: 40px 20px 50px; }
-    .hero-photo-wrap { width: 120px; height: 120px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.4); margin: 0 auto 20px; overflow: hidden; background: var(--green-mid); display: flex; align-items: center; justify-content: center; }
-    .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-photo-placeholder { font-size: 48px; }
-    .hero h1 { font-family: 'Frank Ruhl Libre', serif; font-size: 32px; font-weight: 900; line-height: 1.2; margin-bottom: 8px; }
-    .hero-sub { font-size: 16px; opacity: 0.85; margin-bottom: 24px; }
-    .events-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .event-pill { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 6px 14px; font-size: 13px; white-space: nowrap; }
+    /* Tabs */
+    .tabs{display:flex;background:var(--white);border-bottom:1px solid var(--cream-dark);position:sticky;top:61px;z-index:90;max-width:800px;margin:0 auto;}
+    .tab{flex:1;padding:13px 8px;text-align:center;font-size:14px;font-weight:500;color:var(--text-muted);cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s;user-select:none;}
+    .tab.active{color:var(--green);border-bottom-color:var(--green);}
 
-    .tabs { display: flex; background: var(--white); border-bottom: 1px solid var(--cream-dark); position: sticky; top: 57px; z-index: 90; max-width: 800px; margin: 0 auto; }
-    .tab { flex: 1; padding: 14px 8px; text-align: center; font-size: 14px; font-weight: 500; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; user-select: none; }
-    .tab.active { color: var(--green); border-bottom-color: var(--green); }
-
-    .container { max-width: 800px; margin: 0 auto; padding: 20px 16px; }
-
-    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .filter-chip { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-family: 'Heebo', sans-serif; cursor: pointer; transition: all 0.2s; color: var(--text); }
-    .filter-chip.active { background: var(--green); color: white; border-color: var(--green); }
-
-    .upload-fab { position: fixed; bottom: calc(24px + env(safe-area-inset-bottom)); left: 20px; background: var(--red); color: white; border: none; border-radius: 28px; padding: 14px 22px; font-family: 'Heebo', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 20px rgba(200,67,42,0.4); z-index: 200; display: flex; align-items: center; gap: 8px; transition: transform 0.2s, box-shadow 0.2s; }
-    .upload-fab:hover { transform: translateY(-2px); }
-    .upload-fab.hidden { display: none !important; }
-
-    .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    @media (min-width: 600px) { .photo-grid { grid-template-columns: repeat(3, 1fr); } }
-    .photo-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
-    .photo-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; cursor: pointer; transition: transform 0.2s; }
-    .photo-card img:hover { transform: scale(1.02); }
-    .photo-card-body { padding: 10px 12px; }
-    .photo-uploader { font-size: 13px; font-weight: 500; color: var(--green); }
-    .photo-caption { font-size: 13px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .photo-tag { font-size: 11px; background: var(--green-light); color: var(--green); border-radius: 10px; padding: 2px 8px; display: inline-block; margin-top: 4px; }
-    .photo-actions { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-top: 1px solid var(--cream-dark); }
-    .like-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 14px; color: var(--text-muted); font-family: 'Heebo', sans-serif; padding: 0; transition: color 0.2s; }
-    .like-btn.liked { color: var(--red); }
-    .like-btn svg { width: 18px; height: 18px; transition: transform 0.15s; }
-    .like-btn.liked svg { transform: scale(1.2); }
-    .comment-btn { background: none; border: none; cursor: pointer; font-size: 13px; color: var(--text-muted); font-family: 'Heebo', sans-serif; display: flex; align-items: center; gap: 4px; }
-    .admin-del-btn { margin-right: auto; background: none; border: none; cursor: pointer; color: #ccc; font-size: 13px; font-family: 'Heebo', sans-serif; }
-    .admin-del-btn:hover { color: var(--red); }
+    .container{max-width:800px;margin:0 auto;padding:16px;}
 
     /* Agenda */
-    .agenda-day { margin-bottom: 20px; }
-    .agenda-day-header { background: var(--green); color: white; padding: 10px 16px; border-radius: 12px 12px 0 0; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-    .agenda-day-header .day-sub { font-size: 12px; font-weight: 400; opacity: 0.8; margin-right: auto; }
-    .agenda-events { border: 1.5px solid #d4e8da; border-top: none; border-radius: 0 0 12px 12px; overflow: hidden; }
-    .agenda-row { display: flex; align-items: flex-start; border-bottom: 1px solid var(--green-light); background: var(--white); }
-    .agenda-row:last-child { border-bottom: none; }
-    .agenda-row:nth-child(even) { background: #f7fbf8; }
-    .agenda-time { min-width: 68px; padding: 11px 12px; font-size: 13px; font-weight: 700; color: var(--green); border-left: 2px solid var(--green-light); white-space: nowrap; }
-    .agenda-icon { width: 36px; min-width: 36px; padding: 11px 0; text-align: center; font-size: 18px; }
-    .agenda-body { padding: 11px 14px 11px 8px; flex: 1; }
-    .agenda-title { font-size: 14px; font-weight: 500; color: var(--text); }
-    .agenda-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .agenda-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-top: 4px; font-weight: 500; }
-    .badge-must { background: #fdecea; color: #9b3322; }
-    .badge-opt { background: var(--green-light); color: var(--green); }
+    .agenda-day{margin-bottom:18px;}
+    .agenda-day-header{background:var(--green);color:white;padding:9px 14px;border-radius:12px 12px 0 0;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;}
+    .agenda-day-header .day-sub{font-size:11px;font-weight:400;opacity:0.8;margin-right:auto;}
+    .agenda-events{border:1.5px solid #d4e8da;border-top:none;border-radius:0 0 12px 12px;overflow:hidden;}
+    .agenda-row{display:flex;align-items:stretch;border-bottom:1px solid var(--green-light);background:var(--white);}
+    .agenda-row:last-child{border-bottom:none;}
+    .agenda-row:nth-child(even){background:#f7fbf8;}
+    .agenda-left{display:flex;align-items:flex-start;flex:1;cursor:default;}
+    .agenda-time{min-width:62px;padding:10px 10px;font-size:12px;font-weight:700;color:var(--green);border-left:2px solid var(--green-light);white-space:nowrap;display:flex;align-items:center;}
+    .agenda-icon{width:32px;min-width:32px;padding:10px 0;text-align:center;font-size:17px;display:flex;align-items:center;justify-content:center;}
+    .agenda-body{padding:10px 12px 6px 8px;flex:1;}
+    .agenda-title{font-size:14px;font-weight:500;color:var(--text);}
+    .agenda-desc{font-size:11px;color:var(--text-muted);margin-top:1px;}
+    .agenda-badge{display:inline-block;font-size:10px;padding:1px 7px;border-radius:10px;margin-top:4px;font-weight:500;}
+    .badge-must{background:#fdecea;color:#9b3322;}
+    .badge-opt{background:var(--green-light);color:var(--green);}
+
+    /* Emoji reactions */
+    .reactions-area{padding:6px 10px 8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-top:1px solid var(--green-light);}
+    .reaction-counts{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
+    .reaction-pill{display:inline-flex;align-items:center;gap:3px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:20px;padding:3px 8px;font-size:13px;cursor:pointer;transition:all 0.15s;user-select:none;}
+    .reaction-pill.mine{background:var(--green-light);border-color:var(--green);}
+    .reaction-pill .count{font-size:11px;color:var(--text-muted);font-weight:500;}
+    .reaction-pill.mine .count{color:var(--green);}
+    .react-btn{background:none;border:1.5px solid var(--cream-dark);border-radius:20px;padding:3px 8px;font-size:14px;cursor:pointer;color:var(--text-muted);font-family:'Heebo',sans-serif;display:flex;align-items:center;gap:3px;white-space:nowrap;transition:all 0.15s;}
+    .react-btn:hover{border-color:var(--green);color:var(--green);}
+    .emoji-picker{position:absolute;background:white;border:1.5px solid var(--cream-dark);border-radius:14px;padding:8px 10px;box-shadow:0 4px 20px rgba(0,0,0,0.12);display:flex;gap:6px;z-index:50;flex-wrap:wrap;max-width:220px;}
+    .emoji-picker.hidden{display:none!important;}
+    .emoji-opt{font-size:22px;cursor:pointer;padding:4px;border-radius:8px;transition:background 0.1s;user-select:none;}
+    .emoji-opt:hover{background:var(--cream);}
+    .reaction-wrap{position:relative;}
+
+    /* Photos */
+    .filter-bar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;}
+    .filter-chip{background:var(--white);border:1.5px solid var(--cream-dark);border-radius:20px;padding:5px 12px;font-size:12px;font-family:'Heebo',sans-serif;cursor:pointer;transition:all 0.2s;color:var(--text);white-space:nowrap;}
+    .filter-chip.active{background:var(--green);color:white;border-color:var(--green);}
+    .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+    @media(min-width:600px){.photo-grid{grid-template-columns:repeat(3,1fr);}}
+    .photo-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);animation:fadeIn 0.3s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+    .photo-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer;transition:transform 0.2s;}
+    .photo-card img:hover{transform:scale(1.02);}
+    .photo-card-body{padding:8px 10px;}
+    .photo-uploader{font-size:12px;font-weight:500;color:var(--green);}
+    .photo-caption{font-size:12px;color:var(--text-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .photo-tag{font-size:10px;background:var(--green-light);color:var(--green);border-radius:10px;padding:2px 7px;display:inline-block;margin-top:3px;}
+    .photo-actions{display:flex;align-items:center;gap:8px;padding:7px 10px;border-top:1px solid var(--cream-dark);}
+    .like-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text-muted);font-family:'Heebo',sans-serif;padding:0;transition:color 0.2s;}
+    .like-btn.liked{color:var(--red);}
+    .like-btn svg{width:17px;height:17px;transition:transform 0.15s;}
+    .like-btn.liked svg{fill:var(--red);transform:scale(1.2);}
+    .comment-btn{background:none;border:none;cursor:pointer;font-size:12px;color:var(--text-muted);font-family:'Heebo',sans-serif;display:flex;align-items:center;gap:3px;}
+    .admin-del-btn{margin-right:auto;background:none;border:none;cursor:pointer;color:#ccc;font-size:12px;font-family:'Heebo',sans-serif;}
+    .admin-del-btn:hover{color:var(--red);}
 
     /* Memories */
-    .memory-card { background: var(--white); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); margin-bottom: 14px; animation: fadeIn 0.3s ease; border-right: 4px solid var(--green); }
-    .memory-author { font-weight: 700; color: var(--green); font-size: 15px; }
-    .memory-tag { font-size: 11px; background: var(--green-light); color: var(--green); border-radius: 10px; padding: 2px 8px; display: inline-block; margin-bottom: 8px; }
-    .memory-content { font-size: 15px; line-height: 1.6; }
-    .memory-time { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+    .memory-card{background:var(--white);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);margin-bottom:12px;animation:fadeIn 0.3s ease;border-right:4px solid var(--green);}
+    .memory-author{font-weight:700;color:var(--green);font-size:14px;}
+    .memory-tag{font-size:10px;background:var(--green-light);color:var(--green);border-radius:10px;padding:2px 7px;display:inline-block;margin-bottom:6px;}
+    .memory-content{font-size:14px;line-height:1.6;}
+    .memory-time{font-size:11px;color:var(--text-muted);margin-top:6px;}
+
+    /* FAB */
+    .upload-fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom));left:16px;background:var(--red);color:white;border:none;border-radius:28px;padding:13px 20px;font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(200,67,42,0.4);z-index:200;display:flex;align-items:center;gap:7px;transition:transform 0.2s;}
+    .upload-fab:hover{transform:translateY(-2px);}
+    .upload-fab.hidden{display:none!important;}
 
     /* Modals */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300; display: flex; align-items: flex-end; }
-    .modal-overlay.hidden { display: none !important; }
-    .modal { background: var(--white); width: 100%; max-height: 90vh; border-radius: 20px 20px 0 0; padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); overflow-y: auto; animation: slideUp 0.3s ease; }
-    @keyframes slideUp { from { transform: translateY(30px); } to { transform: translateY(0); } }
-    @media (min-width: 600px) { .modal-overlay { align-items: center; } .modal { border-radius: 20px; max-width: 480px; margin: auto; } }
-    .modal-handle { width: 36px; height: 4px; background: var(--cream-dark); border-radius: 2px; margin: 0 auto 20px; }
-    .modal h2 { font-family: 'Frank Ruhl Libre', serif; font-size: 22px; margin-bottom: 20px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1.5px solid var(--cream-dark); border-radius: 10px; font-family: 'Heebo', sans-serif; font-size: 15px; color: var(--text); background: var(--cream); direction: rtl; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--green); }
-    .form-group textarea { resize: vertical; min-height: 90px; }
-    .btn-primary { width: 100%; padding: 14px; background: var(--green); color: white; border: none; border-radius: 12px; font-family: 'Heebo', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 4px; }
-    .btn-primary:hover { background: var(--green-mid); }
-    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-    .btn-secondary { width: 100%; padding: 12px; background: none; color: var(--text-muted); border: 1.5px solid var(--cream-dark); border-radius: 12px; font-family: 'Heebo', sans-serif; font-size: 15px; cursor: pointer; margin-top: 10px; }
-    .form-error { color: var(--red); font-size: 13px; margin-top: 6px; }
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;display:flex;align-items:flex-end;}
+    .modal-overlay.hidden{display:none!important;}
+    .modal{background:var(--white);width:100%;max-height:92vh;border-radius:20px 20px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));overflow-y:auto;animation:slideUp 0.3s ease;}
+    @keyframes slideUp{from{transform:translateY(30px)}to{transform:translateY(0)}}
+    @media(min-width:600px){.modal-overlay{align-items:center}.modal{border-radius:20px;max-width:480px;margin:auto;}}
+    .modal-handle{width:36px;height:4px;background:var(--cream-dark);border-radius:2px;margin:0 auto 18px;}
+    .modal h2{font-family:'Frank Ruhl Libre',serif;font-size:21px;margin-bottom:18px;}
+    .form-group{margin-bottom:14px;}
+    .form-group label{display:block;font-size:13px;font-weight:500;margin-bottom:5px;}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 13px;border:1.5px solid var(--cream-dark);border-radius:10px;font-family:'Heebo',sans-serif;font-size:15px;color:var(--text);background:var(--cream);direction:rtl;}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--green);}
+    .form-group textarea{resize:vertical;min-height:80px;}
+    .btn-primary{width:100%;padding:13px;background:var(--green);color:white;border:none;border-radius:12px;font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;}
+    .btn-primary:hover{background:var(--green-mid);}
+    .btn-primary:disabled{opacity:0.6;cursor:not-allowed;}
+    .btn-secondary{width:100%;padding:11px;background:none;color:var(--text-muted);border:1.5px solid var(--cream-dark);border-radius:12px;font-family:'Heebo',sans-serif;font-size:14px;cursor:pointer;margin-top:8px;}
+    .form-error{color:var(--red);font-size:12px;margin-top:5px;}
 
     /* Lightbox */
-    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .lightbox.hidden { display: none !important; }
-    .lightbox img { max-width: 95vw; max-height: 70vh; object-fit: contain; border-radius: 8px; }
-    .lightbox-close { position: absolute; top: 20px; left: 20px; color: white; font-size: 28px; cursor: pointer; background: none; border: none; }
-    .lightbox-comments { background: white; width: 100%; max-width: 500px; border-radius: 16px 16px 0 0; padding: 16px 20px; max-height: 35vh; overflow-y: auto; margin-top: 12px; }
-    @media (min-width: 600px) { .lightbox-comments { border-radius: 16px; } }
-    .comment-item { padding: 8px 0; border-bottom: 1px solid var(--cream-dark); font-size: 14px; }
-    .comment-item:last-child { border-bottom: none; }
-    .comment-name { font-weight: 700; color: var(--green); font-size: 13px; }
-    .comment-input-row { display: flex; gap: 8px; margin-top: 10px; }
-    .comment-input-row input { flex: 1; padding: 10px 12px; border: 1.5px solid var(--cream-dark); border-radius: 8px; font-family: 'Heebo', sans-serif; font-size: 14px; direction: rtl; }
-    .comment-input-row button { background: var(--green); color: white; border: none; border-radius: 8px; padding: 10px 16px; font-family: 'Heebo', sans-serif; font-size: 14px; cursor: pointer; }
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:400;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .lightbox.hidden{display:none!important;}
+    .lightbox img{max-width:95vw;max-height:65vh;object-fit:contain;border-radius:8px;}
+    .lightbox-close{position:absolute;top:16px;left:16px;color:white;font-size:26px;cursor:pointer;background:none;border:none;}
+    .lightbox-comments{background:white;width:100%;max-width:500px;border-radius:16px 16px 0 0;padding:14px 18px;max-height:35vh;overflow-y:auto;margin-top:10px;}
+    @media(min-width:600px){.lightbox-comments{border-radius:16px;}}
+    .comment-item{padding:7px 0;border-bottom:1px solid var(--cream-dark);font-size:13px;}
+    .comment-item:last-child{border-bottom:none;}
+    .comment-name{font-weight:700;color:var(--green);font-size:12px;}
+    .comment-input-row{display:flex;gap:7px;margin-top:8px;}
+    .comment-input-row input{flex:1;padding:9px 11px;border:1.5px solid var(--cream-dark);border-radius:8px;font-family:'Heebo',sans-serif;font-size:14px;direction:rtl;}
+    .comment-input-row button{background:var(--green);color:white;border:none;border-radius:8px;padding:9px 14px;font-family:'Heebo',sans-serif;font-size:13px;cursor:pointer;}
 
-    .upload-area { border: 2px dashed var(--green-mid); border-radius: 10px; padding: 28px; text-align: center; cursor: pointer; color: var(--text-muted); font-size: 15px; }
-    .upload-area:hover { background: var(--green-light); }
-    .upload-area-icon { font-size: 32px; margin-bottom: 8px; }
-    .photo-preview { width: 100%; border-radius: 10px; display: none; max-height: 200px; object-fit: cover; margin-top: 8px; }
+    .upload-area{border:2px dashed var(--green-mid);border-radius:10px;padding:24px;text-align:center;cursor:pointer;color:var(--text-muted);font-size:14px;}
+    .upload-area:hover{background:var(--green-light);}
+    .upload-area-icon{font-size:28px;margin-bottom:6px;}
+    .photo-preview{width:100%;border-radius:10px;display:none;max-height:180px;object-fit:cover;margin-top:8px;}
 
-    .toast { position: fixed; top: 80px; right: 16px; left: 16px; background: var(--green); color: white; padding: 14px 18px; border-radius: 12px; font-size: 15px; font-weight: 500; z-index: 500; text-align: center; max-width: 400px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.2); animation: toastIn 0.3s ease; }
-    .toast.error { background: var(--red); }
-    .toast.hidden { display: none !important; }
-    @keyframes toastIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; } }
-    .notif-banner { position: fixed; top: 70px; right: 16px; left: 16px; background: var(--green); color: white; padding: 14px 18px; border-radius: 12px; font-size: 14px; z-index: 490; box-shadow: 0 4px 20px rgba(0,0,0,0.2); cursor: pointer; max-width: 400px; margin: 0 auto; display: flex; align-items: center; gap: 10px; animation: toastIn 0.3s ease; }
-    .notif-banner.hidden { display: none !important; }
-    .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); }
-    .empty-icon { font-size: 48px; margin-bottom: 12px; }
-    .del-btn { background: none; border: none; color: var(--red); cursor: pointer; font-size: 13px; font-family: 'Heebo', sans-serif; }
+    .toast{position:fixed;top:74px;right:16px;left:16px;background:var(--green);color:white;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:500;z-index:500;text-align:center;max-width:400px;margin:0 auto;box-shadow:0 4px 20px rgba(0,0,0,0.2);animation:toastIn 0.3s ease;}
+    .toast.error{background:var(--red);}
+    .toast.hidden{display:none!important;}
+    @keyframes toastIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1}}
+    .notif-banner{position:fixed;top:70px;right:16px;left:16px;background:var(--green);color:white;padding:12px 16px;border-radius:12px;font-size:13px;z-index:490;box-shadow:0 4px 20px rgba(0,0,0,0.2);cursor:pointer;max-width:400px;margin:0 auto;display:flex;align-items:center;gap:8px;animation:toastIn 0.3s ease;}
+    .notif-banner.hidden{display:none!important;}
+    .empty-state{text-align:center;padding:40px 20px;color:var(--text-muted);}
+    .empty-icon{font-size:44px;margin-bottom:10px;}
+    .del-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:12px;font-family:'Heebo',sans-serif;}
   </style>
 </head>
 <body>
 
 <header class="header">
   <div class="header-inner">
-    <div class="header-logo">יורם <span>80</span> 🎂</div>
+    <div class="header-logo">
+      <img src="/uploads/yoram-hero.jpg" onerror="this.style.display='none'" alt="">
+      יורם <span>80</span> 🎂
+    </div>
     <div class="header-actions">
       <span id="user-name-display"></span>
       <button class="btn-header" id="auth-btn" onclick="openAuthModal()">כניסה</button>
@@ -154,101 +168,117 @@
   </div>
 </header>
 
-<section class="hero">
-  <div class="hero-photo-wrap">
-    <img src="/uploads/yoram-hero.jpg" alt="סבא יורם" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-    <span class="hero-photo-placeholder" style="display:none">👴</span>
-  </div>
-  <h1>יום הולדת 80<br>לסבא יורם!</h1>
-  <p class="hero-sub">פסח תשפ"ה • משפחה ביחד ❤️</p>
-  <div class="events-row">
-    <div class="event-pill">🕍 ליל סדר — א׳ אפריל</div>
-    <div class="event-pill">🌭 נקניקיות — חמישי</div>
-    <div class="event-pill">👨‍🍳 ארוחת שף — שישי</div>
-  </div>
-</section>
-
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('photos')">📸 גלריה</div>
-  <div class="tab" onclick="switchTab('agenda')">📅 תוכנית</div>
+  <div class="tab active" onclick="switchTab('agenda')">📅 תוכנית</div>
+  <div class="tab" onclick="switchTab('photos')">📸 גלריה</div>
   <div class="tab" onclick="switchTab('memories')">✍️ זיכרונות</div>
 </div>
 
-<!-- Photos -->
-<div class="container" id="tab-photos">
-  <div class="filter-bar">
-    <button class="filter-chip active" onclick="filterPhotos('all',this)">הכל</button>
-    <button class="filter-chip" onclick="filterPhotos('seder',this)">🕍 ליל סדר</button>
-    <button class="filter-chip" onclick="filterPhotos('nknikyot',this)">🌭 נקניקיות</button>
-    <button class="filter-chip" onclick="filterPhotos('chef',this)">👨‍🍳 ארוחת שף</button>
-  </div>
-  <div class="photo-grid" id="photo-grid">
-    <div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📷</div><p>עוד אין תמונות — היו הראשונים!</p></div>
-  </div>
-</div>
-
-<!-- Agenda -->
-<div class="container hidden" id="tab-agenda">
+<!-- AGENDA TAB -->
+<div class="container" id="tab-agenda">
 
   <div class="agenda-day">
     <div class="agenda-day-header">🕍 יום רביעי <span class="day-sub">1 באפריל — ליל סדר</span></div>
     <div class="agenda-events">
-      <div class="agenda-row"><div class="agenda-time">16:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">17:00</div><div class="agenda-icon">☕</div><div class="agenda-body"><div class="agenda-title">שעת הקפה</div><span class="agenda-badge badge-opt">לכולם</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">19:00</div><div class="agenda-icon">🍽️</div><div class="agenda-body"><div class="agenda-title">ארוחת חג חגיגית</div><div class="agenda-desc">ליל הסדר — כולם ביחד</div><span class="agenda-badge badge-must">חובה</span></div></div>
+      <div class="agenda-row" data-aid="wed-pool"><div class="agenda-left"><div class="agenda-time">16:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="wed-pool"></div>
+      <div class="agenda-row" data-aid="wed-coffee"><div class="agenda-left"><div class="agenda-time">17:00</div><div class="agenda-icon">☕</div><div class="agenda-body"><div class="agenda-title">שעת הקפה</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
+      <div class="reactions-area" data-aid="wed-coffee"></div>
+      <div class="agenda-row" data-aid="wed-seder"><div class="agenda-left"><div class="agenda-time">19:00</div><div class="agenda-icon">🍽️</div><div class="agenda-body"><div class="agenda-title">ארוחת חג חגיגית</div><div class="agenda-desc">ליל הסדר — כולם ביחד</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="wed-seder"></div>
     </div>
   </div>
 
   <div class="agenda-day">
     <div class="agenda-day-header">🌭 יום חמישי <span class="day-sub">2 באפריל</span></div>
     <div class="agenda-events">
-      <div class="agenda-row"><div class="agenda-time">09:00</div><div class="agenda-icon">💪</div><div class="agenda-body"><div class="agenda-title">אימון בטן עם נעמה</div><span class="agenda-badge badge-must">חובה</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">10:00</div><div class="agenda-icon">🥐</div><div class="agenda-body"><div class="agenda-title">ארוחת בוקר של גילי</div><div class="agenda-desc">נא לבוא רעבים!</div><span class="agenda-badge badge-must">חובה</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">11:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה עם ברי וטומי</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">12:00</div><div class="agenda-icon">🍺</div><div class="agenda-body"><div class="agenda-title">הבר פתוח!</div><div class="agenda-desc">מותר כבר לשתות — עם ערן</div><span class="agenda-badge badge-opt">לכולם</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">14:00</div><div class="agenda-icon">📖</div><div class="agenda-body"><div class="agenda-title">ספר הזיכרונות של סבא</div><div class="agenda-desc">פעילות מיוחדת עם רועי</div><span class="agenda-badge badge-opt">לכולם</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">18:00</div><div class="agenda-icon">🌭</div><div class="agenda-body"><div class="agenda-title">ארוחת נקניקיות ובירה</div><span class="agenda-badge badge-opt">לכולם</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">20:00</div><div class="agenda-icon">🎵</div><div class="agenda-body"><div class="agenda-title">ערב שירה בציבור עם נעמה</div><span class="agenda-badge badge-must">חובה</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">21:30</div><div class="agenda-icon">🎁</div><div class="agenda-body"><div class="agenda-title">טקס מתנות יום הולדת</div><span class="agenda-badge badge-must">חובה</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">22:00</div><div class="agenda-icon">🥃</div><div class="agenda-body"><div class="agenda-title">ערב טעימות וויסקי</div><span class="agenda-badge badge-opt">לכולם</span></div></div>
+      <div class="agenda-row" data-aid="thu-workout"><div class="agenda-left"><div class="agenda-time">09:00</div><div class="agenda-icon">💪</div><div class="agenda-body"><div class="agenda-title">אימון בטן עם נעמה</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-workout"></div>
+      <div class="agenda-row" data-aid="thu-breakfast"><div class="agenda-left"><div class="agenda-time">10:00</div><div class="agenda-icon">🥐</div><div class="agenda-body"><div class="agenda-title">ארוחת בוקר של גילי</div><div class="agenda-desc">נא לבוא רעבים!</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-breakfast"></div>
+      <div class="agenda-row" data-aid="thu-pool"><div class="agenda-left"><div class="agenda-time">11:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה עם ברי וטומי</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-pool"></div>
+      <div class="agenda-row" data-aid="thu-bar"><div class="agenda-left"><div class="agenda-time">12:00</div><div class="agenda-icon">🍺</div><div class="agenda-body"><div class="agenda-title">הבר פתוח!</div><div class="agenda-desc">מותר כבר לשתות — עם ערן</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-bar"></div>
+      <div class="agenda-row" data-aid="thu-memories"><div class="agenda-left"><div class="agenda-time">14:00</div><div class="agenda-icon">📖</div><div class="agenda-body"><div class="agenda-title">ספר הזיכרונות של סבא</div><div class="agenda-desc">פעילות מיוחדת עם רועי</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-memories"></div>
+      <div class="agenda-row" data-aid="thu-bbq"><div class="agenda-left"><div class="agenda-time">18:00</div><div class="agenda-icon">🌭</div><div class="agenda-body"><div class="agenda-title">ארוחת נקניקיות ובירה</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-bbq"></div>
+      <div class="agenda-row" data-aid="thu-singing"><div class="agenda-left"><div class="agenda-time">20:00</div><div class="agenda-icon">🎵</div><div class="agenda-body"><div class="agenda-title">ערב שירה בציבור עם נעמה</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-singing"></div>
+      <div class="agenda-row" data-aid="thu-gifts"><div class="agenda-left"><div class="agenda-time">21:30</div><div class="agenda-icon">🎁</div><div class="agenda-body"><div class="agenda-title">טקס מתנות יום הולדת</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-gifts"></div>
+      <div class="agenda-row" data-aid="thu-whisky"><div class="agenda-left"><div class="agenda-time">22:00</div><div class="agenda-icon">🥃</div><div class="agenda-body"><div class="agenda-title">ערב טעימות וויסקי</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
+      <div class="reactions-area" data-aid="thu-whisky"></div>
     </div>
   </div>
 
   <div class="agenda-day">
     <div class="agenda-day-header">👨‍🍳 יום שישי <span class="day-sub">3 באפריל — ארוחת שף</span></div>
     <div class="agenda-events">
-      <div class="agenda-row"><div class="agenda-time">08:00</div><div class="agenda-icon">🚶</div><div class="agenda-body"><div class="agenda-title">הליכת בוקר עם רוני</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">09:30</div><div class="agenda-icon">🥗</div><div class="agenda-body"><div class="agenda-title">ארוחת בוקר של ייני וניר</div><span class="agenda-badge badge-must">חובה</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">11:00</div><div class="agenda-icon">🚴</div><div class="agenda-body"><div class="agenda-title">טיול אופניים עם ערן</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">12:30</div><div class="agenda-icon">🌿</div><div class="agenda-body"><div class="agenda-title">טיול בגינוסר עם ליאור</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">16:00</div><div class="agenda-icon">📸</div><div class="agenda-body"><div class="agenda-title">צילומים עם צלמת מקצועית</div><div class="agenda-desc">לבוא עם בגדי פסטל</div><span class="agenda-badge badge-must">חובה</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">19:00</div><div class="agenda-icon">🍷</div><div class="agenda-body"><div class="agenda-title">ארוחת שף</div><span class="agenda-badge badge-must">חובה</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">21:00</div><div class="agenda-icon">🎬</div><div class="agenda-body"><div class="agenda-title">הקרנת סרט מרגש</div><span class="agenda-badge badge-opt">לכולם</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">21:20</div><div class="agenda-icon">👨‍👩‍👧‍👦</div><div class="agenda-body"><div class="agenda-title">ברכת הנכדים</div><span class="agenda-badge badge-must">חובה</span></div></div>
+      <div class="agenda-row" data-aid="fri-walk"><div class="agenda-left"><div class="agenda-time">08:00</div><div class="agenda-icon">🚶</div><div class="agenda-body"><div class="agenda-title">הליכת בוקר עם רוני</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-walk"></div>
+      <div class="agenda-row" data-aid="fri-breakfast"><div class="agenda-left"><div class="agenda-time">09:30</div><div class="agenda-icon">🥗</div><div class="agenda-body"><div class="agenda-title">ארוחת בוקר של ייני וניר</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-breakfast"></div>
+      <div class="agenda-row" data-aid="fri-bike"><div class="agenda-left"><div class="agenda-time">11:00</div><div class="agenda-icon">🚴</div><div class="agenda-body"><div class="agenda-title">טיול אופניים עם ערן</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-bike"></div>
+      <div class="agenda-row" data-aid="fri-ginosar"><div class="agenda-left"><div class="agenda-time">12:30</div><div class="agenda-icon">🌿</div><div class="agenda-body"><div class="agenda-title">טיול בגינוסר עם ליאור</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-ginosar"></div>
+      <div class="agenda-row" data-aid="fri-photo"><div class="agenda-left"><div class="agenda-time">16:00</div><div class="agenda-icon">📸</div><div class="agenda-body"><div class="agenda-title">צילומים עם צלמת מקצועית</div><div class="agenda-desc">לבוא עם בגדי פסטל</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-photo"></div>
+      <div class="agenda-row" data-aid="fri-chef"><div class="agenda-left"><div class="agenda-time">19:00</div><div class="agenda-icon">🍷</div><div class="agenda-body"><div class="agenda-title">ארוחת שף</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-chef"></div>
+      <div class="agenda-row" data-aid="fri-movie"><div class="agenda-left"><div class="agenda-time">21:00</div><div class="agenda-icon">🎬</div><div class="agenda-body"><div class="agenda-title">הקרנת סרט מרגש</div><span class="agenda-badge badge-opt">לכולם</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-movie"></div>
+      <div class="agenda-row" data-aid="fri-blessing"><div class="agenda-left"><div class="agenda-time">21:20</div><div class="agenda-icon">👨‍👩‍👧‍👦</div><div class="agenda-body"><div class="agenda-title">ברכת הנכדים</div><span class="agenda-badge badge-must">חובה</span></div></div></div>
+      <div class="reactions-area" data-aid="fri-blessing"></div>
     </div>
   </div>
 
   <div class="agenda-day">
     <div class="agenda-day-header">🏠 יום שבת <span class="day-sub">4 באפריל — נסיעה הביתה</span></div>
     <div class="agenda-events">
-      <div class="agenda-row"><div class="agenda-time">09:00</div><div class="agenda-icon">🏃</div><div class="agenda-body"><div class="agenda-title">ריצת בוקר עם ניר</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">11:00</div><div class="agenda-icon">☕</div><div class="agenda-body"><div class="agenda-title">עגלת קפה עם שיר — מושב רמות</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
-      <div class="agenda-row"><div class="agenda-time">12:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div>
+      <div class="agenda-row" data-aid="sat-run"><div class="agenda-left"><div class="agenda-time">09:00</div><div class="agenda-icon">🏃</div><div class="agenda-body"><div class="agenda-title">ריצת בוקר עם ניר</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="sat-run"></div>
+      <div class="agenda-row" data-aid="sat-coffee"><div class="agenda-left"><div class="agenda-time">11:00</div><div class="agenda-icon">☕</div><div class="agenda-body"><div class="agenda-title">עגלת קפה עם שיר — מושב רמות</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="sat-coffee"></div>
+      <div class="agenda-row" data-aid="sat-pool"><div class="agenda-left"><div class="agenda-time">12:00</div><div class="agenda-icon">🏊</div><div class="agenda-body"><div class="agenda-title">בריכה</div><span class="agenda-badge badge-opt">אופציונלי</span></div></div></div>
+      <div class="reactions-area" data-aid="sat-pool"></div>
     </div>
   </div>
 
 </div>
 
-<!-- Memories -->
+<!-- PHOTOS TAB -->
+<div class="container hidden" id="tab-photos">
+  <div class="filter-bar">
+    <button class="filter-chip active" onclick="filterPhotos('all',this)">הכל</button>
+    <button class="filter-chip" onclick="filterPhotos('seder',this)">🕍 ליל סדר</button>
+    <button class="filter-chip" onclick="filterPhotos('thu-morning',this)">🥐 בוקר חמישי</button>
+    <button class="filter-chip" onclick="filterPhotos('thu-bbq',this)">🌭 נקניקיות</button>
+    <button class="filter-chip" onclick="filterPhotos('thu-singing',this)">🎵 שירה</button>
+    <button class="filter-chip" onclick="filterPhotos('thu-gifts',this)">🎁 מתנות</button>
+    <button class="filter-chip" onclick="filterPhotos('fri-morning',this)">🥗 בוקר שישי</button>
+    <button class="filter-chip" onclick="filterPhotos('fri-photo',this)">📸 צילומים</button>
+    <button class="filter-chip" onclick="filterPhotos('chef',this)">🍷 ארוחת שף</button>
+    <button class="filter-chip" onclick="filterPhotos('fri-blessing',this)">👨‍👩‍👧‍👦 ברכת נכדים</button>
+    <button class="filter-chip" onclick="filterPhotos('general',this)">🌟 כללי</button>
+  </div>
+  <div class="photo-grid" id="photo-grid">
+    <div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📷</div><p>עוד אין תמונות — היו הראשונים!</p></div>
+  </div>
+</div>
+
+<!-- MEMORIES TAB -->
 <div class="container hidden" id="tab-memories">
   <div id="memories-list"></div>
-  <div style="text-align:center;margin-top:20px">
-    <button class="btn-primary" style="width:auto;padding:12px 28px" onclick="openMemoryModal()">✍️ שתף זיכרון</button>
+  <div style="text-align:center;margin-top:16px">
+    <button class="btn-primary" style="width:auto;padding:11px 26px" onclick="openMemoryModal()">✍️ שתף זיכרון</button>
   </div>
 </div>
 
 <button class="upload-fab hidden" id="upload-fab" onclick="openUploadModal()">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
   העלאת תמונה
 </button>
 
@@ -261,7 +291,7 @@
     <div class="form-group"><label>כתובת מייל</label><input type="email" id="login-email" placeholder="your@email.com"></div>
     <div class="form-error hidden" id="login-error"></div>
     <button class="btn-primary" onclick="submitLogin()">כניסה</button>
-    <p style="text-align:center;margin-top:12px;font-size:13px;color:var(--text-muted)">אם זו הפעם הראשונה — ייווצר לך חשבון אוטומטית</p>
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text-muted)">אם זו הפעם הראשונה — ייווצר לך חשבון אוטומטית</p>
     <button class="btn-secondary" onclick="closeModal('auth-modal')">ביטול</button>
   </div>
 </div>
@@ -270,7 +300,7 @@
 <div class="modal-overlay hidden" id="upload-modal">
   <div class="modal">
     <div class="modal-handle"></div>
-    <h2>העלאת תמונה</h2>
+    <h2>העלאת תמונה 📸</h2>
     <div class="form-group">
       <label>תמונה</label>
       <div class="upload-area" onclick="document.getElementById('photo-file').click()">
@@ -284,8 +314,22 @@
       <select id="photo-event">
         <option value="">— בחר אירוע —</option>
         <option value="seder">🕍 ליל סדר</option>
-        <option value="nknikyot">🌭 ארוחת נקניקיות</option>
-        <option value="chef">👨‍🍳 ארוחת שף</option>
+        <option value="thu-morning">🥐 ארוחת בוקר — גילי</option>
+        <option value="thu-pool">🏊 בריכה — חמישי</option>
+        <option value="thu-bbq">🌭 נקניקיות ובירה</option>
+        <option value="thu-memories">📖 ספר הזיכרונות</option>
+        <option value="thu-singing">🎵 שירה בציבור</option>
+        <option value="thu-gifts">🎁 טקס מתנות</option>
+        <option value="thu-whisky">🥃 טעימות וויסקי</option>
+        <option value="fri-morning">🥗 ארוחת בוקר — ייני וניר</option>
+        <option value="fri-bike">🚴 טיול אופניים</option>
+        <option value="fri-ginosar">🌿 טיול גינוסר</option>
+        <option value="fri-photo">📸 צילומים מקצועיים</option>
+        <option value="chef">🍷 ארוחת שף</option>
+        <option value="fri-blessing">👨‍👩‍👧‍👦 ברכת הנכדים</option>
+        <option value="sat-run">🏃 ריצת בוקר</option>
+        <option value="sat-coffee">☕ עגלת קפה</option>
+        <option value="general">🌟 כללי</option>
       </select>
     </div>
     <div class="form-group"><label>כיתוב (אופציונלי)</label><input type="text" id="photo-caption" placeholder="תיאור קצר..."></div>
@@ -305,8 +349,22 @@
       <select id="memory-event">
         <option value="">— בחר אירוע —</option>
         <option value="seder">🕍 ליל סדר</option>
-        <option value="nknikyot">🌭 ארוחת נקניקיות</option>
-        <option value="chef">👨‍🍳 ארוחת שף</option>
+        <option value="thu-morning">🥐 ארוחת בוקר — גילי</option>
+        <option value="thu-pool">🏊 בריכה — חמישי</option>
+        <option value="thu-bbq">🌭 נקניקיות ובירה</option>
+        <option value="thu-memories">📖 ספר הזיכרונות</option>
+        <option value="thu-singing">🎵 שירה בציבור</option>
+        <option value="thu-gifts">🎁 טקס מתנות</option>
+        <option value="thu-whisky">🥃 טעימות וויסקי</option>
+        <option value="fri-morning">🥗 ארוחת בוקר — ייני וניר</option>
+        <option value="fri-bike">🚴 טיול אופניים</option>
+        <option value="fri-ginosar">🌿 טיול גינוסר</option>
+        <option value="fri-photo">📸 צילומים מקצועיים</option>
+        <option value="chef">🍷 ארוחת שף</option>
+        <option value="fri-blessing">👨‍👩‍👧‍👦 ברכת הנכדים</option>
+        <option value="sat-run">🏃 ריצת בוקר</option>
+        <option value="sat-coffee">☕ עגלת קפה</option>
+        <option value="general">🌟 כללי</option>
       </select>
     </div>
     <div class="form-group"><label>הזיכרון שלך</label><textarea id="memory-content" placeholder="שתף רגע מיוחד..."></textarea></div>
@@ -326,19 +384,30 @@
       <input type="text" id="comment-input" placeholder="הוסף תגובה..." onkeydown="if(event.key==='Enter')submitComment()">
       <button onclick="submitComment()">שלח</button>
     </div>
-    <div id="comment-login-msg" style="text-align:center;font-size:13px;color:#999;margin-top:8px"></div>
+    <div id="comment-login-msg" style="text-align:center;font-size:12px;color:#999;margin-top:6px"></div>
   </div>
 </div>
 
 <div class="toast hidden" id="toast"></div>
 <div class="notif-banner hidden" id="notif-banner" onclick="dismissNotif()">
-  <span style="font-size:20px">📸</span><span id="notif-text"></span>
+  <span style="font-size:18px">📸</span><span id="notif-text"></span>
 </div>
 
 <script>
-let currentUser=null, allPhotos=[], currentFilter='all', currentPhotoId=null, ws;
-const EVENT_LABELS={seder:'🕍 ליל סדר',nknikyot:'🌭 נקניקיות',chef:'👨‍🍳 ארוחת שף'};
+let currentUser=null,allPhotos=[],currentFilter='all',currentPhotoId=null,ws;
+let allReactions={},myReactions={};
 
+const EMOJIS=['❤️','🔥','😂','👏','🤩','😍','🙌','💪'];
+const EVENT_LABELS={
+  seder:'🕍 ליל סדר','thu-morning':'🥐 ארוחת בוקר גילי','thu-pool':'🏊 בריכה חמישי',
+  'thu-bbq':'🌭 נקניקיות','thu-memories':'📖 ספר הזיכרונות','thu-singing':'🎵 שירה',
+  'thu-gifts':'🎁 טקס מתנות','thu-whisky':'🥃 וויסקי','fri-morning':'🥗 ארוחת בוקר ייני',
+  'fri-bike':'🚴 אופניים','fri-ginosar':'🌿 גינוסר','fri-photo':'📸 צילומים',
+  chef:'🍷 ארוחת שף','fri-blessing':'👨‍👩‍👧‍👦 ברכת נכדים','sat-run':'🏃 ריצה',
+  'sat-coffee':'☕ עגלת קפה',general:'🌟 כללי'
+};
+
+// ── WebSocket ──────────────────────────────────────────────────────────────
 function connectWS(){
   const proto=location.protocol==='https:'?'wss':'ws';
   ws=new WebSocket(`${proto}://${location.host}`);
@@ -346,31 +415,44 @@ function connectWS(){
   ws.onclose=()=>setTimeout(connectWS,3000);
 }
 function handleWS(msg){
-  if(msg.type==='new_photo'){allPhotos.unshift(msg.photo);renderPhotos();if(currentUser&&msg.photo.user_id!==currentUser.userId)showNotif(`${msg.photo.uploader_name} העלה/ה תמונה חדשה! 📸`);}
+  if(msg.type==='new_photo'){allPhotos.unshift(msg.photo);renderPhotos();if(currentUser&&msg.photo.user_id!==currentUser.userId)showNotif(`${msg.photo.uploader_name} העלה/ה תמונה חדשה!`);}
   else if(msg.type==='delete_photo'){allPhotos=allPhotos.filter(p=>p.id!==msg.photoId);renderPhotos();if(currentPhotoId===msg.photoId)closeLightbox();}
   else if(msg.type==='like_update'){const p=allPhotos.find(p=>p.id===msg.photoId);if(p){p.likes_count=msg.count;const el=document.querySelector(`.like-count[data-pid="${msg.photoId}"]`);if(el)el.textContent=msg.count;}}
   else if(msg.type==='new_comment'){const p=allPhotos.find(p=>p.id===msg.comment.photo_id);if(p){p.comments_count=(p.comments_count||0)+1;const el=document.querySelector(`.comment-count[data-pid="${msg.comment.photo_id}"]`);if(el)el.textContent=p.comments_count;}if(currentPhotoId===msg.comment.photo_id)addCommentToList(msg.comment);}
   else if(msg.type==='delete_comment'){const el=document.querySelector(`[data-cid="${msg.commentId}"]`);if(el)el.remove();}
   else if(msg.type==='new_memory')renderMemoryCard(msg.memory,true);
   else if(msg.type==='delete_memory'){const el=document.querySelector(`[data-mid="${msg.memoryId}"]`);if(el)el.remove();}
+  else if(msg.type==='reaction_update'){allReactions[msg.activityId]=msg.counts;renderReactions(msg.activityId);}
 }
 
-async function init(){await checkAuth();await loadPhotos();await loadMemories();connectWS();}
-async function checkAuth(){const d=await(await fetch('/api/me')).json();if(d.loggedIn){currentUser=d;updateUI();}}
+async function init(){
+  await checkAuth();
+  await Promise.all([loadPhotos(),loadMemories(),loadReactions()]);
+  renderAllReactions();
+  connectWS();
+}
+
+async function checkAuth(){const d=await(await fetch('/api/me')).json();if(d.loggedIn){currentUser=d;updateUI();await loadMyReactions();}}
 function updateUI(){
   if(currentUser){
     document.getElementById('user-name-display').textContent=`שלום, ${currentUser.name}`;
     document.getElementById('auth-btn').classList.add('hidden');
     document.getElementById('logout-btn').classList.remove('hidden');
-    if(document.getElementById('tab-photos').style.display!=='none')document.getElementById('upload-fab').classList.remove('hidden');
   } else {
     document.getElementById('user-name-display').textContent='';
     document.getElementById('auth-btn').classList.remove('hidden');
     document.getElementById('logout-btn').classList.add('hidden');
-    document.getElementById('upload-fab').classList.add('hidden');
   }
+  updateFab();
+  renderAllReactions();
 }
 
+function updateFab(){
+  const inPhotos=!document.getElementById('tab-photos').classList.contains('hidden');
+  document.getElementById('upload-fab').classList.toggle('hidden',!inPhotos||!currentUser);
+}
+
+// ── Auth ───────────────────────────────────────────────────────────────────
 function openAuthModal(){showModal('auth-modal');}
 async function submitLogin(){
   const name=document.getElementById('login-name').value.trim();
@@ -381,10 +463,92 @@ async function submitLogin(){
   const data=await r.json();
   if(!r.ok){errEl.textContent=data.error;errEl.classList.remove('hidden');return;}
   currentUser=await(await fetch('/api/me')).json();
+  await loadMyReactions();
   updateUI();closeModal('auth-modal');showToast(`ברוך הבא, ${data.name}! 🎉`);
 }
-async function logout(){await fetch('/api/logout',{method:'POST'});currentUser=null;updateUI();showToast('להתראות! 👋');}
+async function logout(){await fetch('/api/logout',{method:'POST'});currentUser=null;myReactions={};updateUI();showToast('להתראות! 👋');}
 
+// ── Reactions ──────────────────────────────────────────────────────────────
+async function loadReactions(){const d=await(await fetch('/api/reactions')).json();allReactions=d;}
+async function loadMyReactions(){if(!currentUser)return;const d=await(await fetch('/api/reactions/mine')).json();myReactions=d;}
+
+function renderAllReactions(){
+  document.querySelectorAll('.reactions-area').forEach(area=>{
+    renderReactions(area.dataset.aid);
+  });
+}
+
+function renderReactions(aid){
+  const area=document.querySelector(`.reactions-area[data-aid="${aid}"]`);
+  if(!area)return;
+  const counts=allReactions[aid]||{};
+  const myEmoji=myReactions[aid]||null;
+  const hasAny=Object.keys(counts).length>0;
+
+  area.innerHTML='';
+
+  // existing reaction pills
+  const pillsDiv=document.createElement('div');
+  pillsDiv.className='reaction-counts';
+  Object.entries(counts).forEach(([emoji,count])=>{
+    if(count<1)return;
+    const pill=document.createElement('span');
+    pill.className='reaction-pill'+(myEmoji===emoji?' mine':'');
+    pill.innerHTML=`${emoji}<span class="count">${count}</span>`;
+    pill.onclick=()=>doReact(aid,emoji);
+    pillsDiv.appendChild(pill);
+  });
+  area.appendChild(pillsDiv);
+
+  // react button (only for logged in)
+  if(currentUser){
+    const wrap=document.createElement('div');
+    wrap.className='reaction-wrap';
+    const btn=document.createElement('button');
+    btn.className='react-btn';
+    btn.innerHTML=`<span style="font-size:15px">😊</span> תגובה`;
+    btn.onclick=(e)=>{e.stopPropagation();togglePicker(aid,wrap);};
+    const picker=document.createElement('div');
+    picker.className='emoji-picker hidden';
+    picker.id=`picker-${aid}`;
+    // position above button
+    picker.style.bottom='36px';picker.style.left='0';picker.style.position='absolute';
+    EMOJIS.forEach(emoji=>{
+      const opt=document.createElement('span');
+      opt.className='emoji-opt'+(myEmoji===emoji?' mine':'');
+      opt.textContent=emoji;
+      opt.onclick=(e)=>{e.stopPropagation();doReact(aid,emoji);closePickers();};
+      picker.appendChild(opt);
+    });
+    wrap.appendChild(btn);
+    wrap.appendChild(picker);
+    area.appendChild(wrap);
+  }
+}
+
+let openPicker=null;
+function togglePicker(aid,wrap){
+  const picker=wrap.querySelector('.emoji-picker');
+  if(openPicker&&openPicker!==picker){openPicker.classList.add('hidden');}
+  picker.classList.toggle('hidden');
+  openPicker=picker.classList.contains('hidden')?null:picker;
+}
+function closePickers(){if(openPicker){openPicker.classList.add('hidden');openPicker=null;}}
+document.addEventListener('click',()=>closePickers());
+
+async function doReact(aid,emoji){
+  if(!currentUser){openAuthModal();return;}
+  const r=await fetch(`/api/reactions/${aid}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({emoji})});
+  const data=await r.json();
+  if(r.ok){
+    allReactions[aid]=data.counts;
+    if(data.myEmoji)myReactions[aid]=data.myEmoji;
+    else delete myReactions[aid];
+    renderReactions(aid);
+  }
+}
+
+// ── Photos ─────────────────────────────────────────────────────────────────
 async function loadPhotos(){allPhotos=await(await fetch('/api/photos')).json();renderPhotos();}
 function filterPhotos(tag,el){currentFilter=tag;document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderPhotos();}
 function renderPhotos(){
@@ -409,7 +573,13 @@ function renderPhotos(){
   </div>`).join('');
 }
 
-async function toggleLike(photoId,e){e.stopPropagation();if(!currentUser){openAuthModal();return;}const data=await(await fetch(`/api/photos/${photoId}/like`,{method:'POST'})).json();const btn=document.getElementById(`like-btn-${photoId}`);if(btn)btn.classList.toggle('liked',data.liked);}
+async function toggleLike(photoId,e){
+  e.stopPropagation();
+  if(!currentUser){openAuthModal();return;}
+  const data=await(await fetch(`/api/photos/${photoId}/like`,{method:'POST'})).json();
+  const btn=document.getElementById(`like-btn-${photoId}`);
+  if(btn)btn.classList.toggle('liked',data.liked);
+}
 async function deletePhoto(id){if(!confirm('למחוק?'))return;await fetch(`/api/photos/${id}`,{method:'DELETE'});}
 
 async function openLightbox(photoId){
@@ -426,9 +596,9 @@ function closeLightbox(){document.getElementById('lightbox').classList.add('hidd
 async function loadComments(photoId){
   const comments=await(await fetch(`/api/photos/${photoId}/comments`)).json();
   const list=document.getElementById('comments-list');
-  list.innerHTML=comments.length===0?'<p style="text-align:center;color:#999;font-size:13px">עוד אין תגובות</p>':comments.map(c=>commentHTML(c)).join('');
+  list.innerHTML=comments.length===0?'<p style="text-align:center;color:#999;font-size:12px">עוד אין תגובות</p>':comments.map(c=>commentHTML(c)).join('');
   if(currentUser){document.getElementById('comment-input-row').classList.remove('hidden');document.getElementById('comment-login-msg').textContent='';}
-  else{document.getElementById('comment-input-row').classList.add('hidden');document.getElementById('comment-login-msg').textContent='כדי להגיב, יש להתחבר';}
+  else{document.getElementById('comment-input-row').classList.add('hidden');document.getElementById('comment-login-msg').textContent='כדי להגיב יש להתחבר';}
 }
 function commentHTML(c){const ad=currentUser?.isAdmin?`<button class="del-btn" data-cid="${c.id}" onclick="deleteComment(${c.id})">מחק</button>`:'';return `<div class="comment-item" data-cid="${c.id}"><span class="comment-name">${c.commenter_name}</span> ${ad}<div>${c.content}</div></div>`;}
 function addCommentToList(c){const list=document.getElementById('comments-list');const empty=list.querySelector('p');if(empty)empty.remove();list.insertAdjacentHTML('beforeend',commentHTML(c));}
@@ -455,15 +625,16 @@ async function submitPhoto(){
   showToast('התמונה הועלתה! 📸');
 }
 
+// ── Memories ───────────────────────────────────────────────────────────────
 async function loadMemories(){
   const memories=await(await fetch('/api/memories')).json();
   const list=document.getElementById('memories-list');
-  if(memories.length===0){list.innerHTML=`<div class="empty-state"><div class="empty-icon">✍️</div><p>עוד אין זיכרונות — שתף את הראשון!</p></div>`;return;}
+  if(memories.length===0){list.innerHTML=`<div class="empty-state"><div class="empty-icon">✍️</div><p>עוד אין זיכרונות</p></div>`;return;}
   list.innerHTML=memories.map(m=>memoryHTML(m)).join('');
 }
 function memoryHTML(m){
-  const ad=currentUser?.isAdmin?`<button class="del-btn" onclick="deleteMemory(${m.id})">🗑️ מחק</button>`:'';
-  return `<div class="memory-card" data-mid="${m.id}"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span class="memory-author">${m.author_name}</span>${ad}</div><div class="memory-tag">${EVENT_LABELS[m.event_tag]||m.event_tag}</div><div class="memory-content">${m.content}</div><div class="memory-time">${new Date(m.created_at).toLocaleString('he-IL')}</div></div>`;
+  const ad=currentUser?.isAdmin?`<button class="del-btn" onclick="deleteMemory(${m.id})">🗑️</button>`:'';
+  return `<div class="memory-card" data-mid="${m.id}"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span class="memory-author">${m.author_name}</span>${ad}</div><div class="memory-tag">${EVENT_LABELS[m.event_tag]||m.event_tag}</div><div class="memory-content">${m.content}</div><div class="memory-time">${new Date(m.created_at).toLocaleString('he-IL')}</div></div>`;
 }
 function renderMemoryCard(m,prepend=false){const list=document.getElementById('memories-list');const empty=list.querySelector('.empty-state');if(empty)empty.remove();if(prepend)list.insertAdjacentHTML('afterbegin',memoryHTML(m));else list.insertAdjacentHTML('beforeend',memoryHTML(m));}
 function openMemoryModal(){if(!currentUser){openAuthModal();return;}showModal('memory-modal');}
@@ -479,14 +650,16 @@ async function submitMemory(){
 }
 async function deleteMemory(id){if(!confirm('למחוק?'))return;await fetch(`/api/memories/${id}`,{method:'DELETE'});}
 
+// ── Tabs ───────────────────────────────────────────────────────────────────
 function switchTab(tab){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  ['photos','agenda','memories'].forEach(t=>document.getElementById(`tab-${t}`).classList.toggle('hidden',t!==tab));
-  const idx=['photos','agenda','memories'].indexOf(tab);
+  ['agenda','photos','memories'].forEach(t=>document.getElementById(`tab-${t}`).classList.toggle('hidden',t!==tab));
+  const idx=['agenda','photos','memories'].indexOf(tab);
   document.querySelectorAll('.tab')[idx]?.classList.add('active');
-  document.getElementById('upload-fab').classList.toggle('hidden',tab!=='photos'||!currentUser);
+  updateFab();
 }
 
+// ── UI helpers ─────────────────────────────────────────────────────────────
 function showModal(id){document.getElementById(id).classList.remove('hidden');document.body.style.overflow='hidden';}
 function closeModal(id){document.getElementById(id).classList.add('hidden');document.body.style.overflow='';}
 document.querySelectorAll('.modal-overlay').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)closeModal(el.id);}));
