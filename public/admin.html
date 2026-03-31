@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אדמין — יורם 80</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --green: #2D5A3D; --green-light: #E8F4EC; --red: #C8432A; --cream: #F9F6F1; --cream-dark: #EDE8E1; --text: #1a2e22; --text-muted: #6b7c72; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+    .header { background: var(--green); color: white; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .header h1 { font-size: 18px; font-weight: 700; }
+    .header a { color: #C8e8b5; font-size: 14px; text-decoration: none; }
+    .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+    .section { background: white; border-radius: 14px; padding: 20px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(45,90,61,0.08); }
+    .section h2 { font-size: 17px; font-weight: 700; color: var(--green); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--cream-dark); }
+    .hero-upload { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hero-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--green); background: var(--cream-dark); }
+    .btn { padding: 10px 20px; border: none; border-radius: 8px; font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; }
+    .btn-green { background: var(--green); color: white; }
+    .btn-red { background: var(--red); color: white; }
+    .btn:hover { opacity: 0.85; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: var(--green-light); color: var(--green); padding: 10px 12px; text-align: right; font-weight: 700; }
+    td { padding: 10px 12px; border-bottom: 1px solid var(--cream-dark); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+    .photo-item { background: var(--cream); border-radius: 10px; overflow: hidden; }
+    .photo-item img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+    .photo-item-body { padding: 6px 8px; font-size: 12px; color: var(--text-muted); }
+    .photo-item-body strong { display: block; color: var(--text); font-size: 13px; }
+    .del-btn { background: none; border: none; color: #ccc; cursor: pointer; font-size: 12px; font-family: 'Heebo', sans-serif; padding: 2px 4px; }
+    .del-btn:hover { color: var(--red); }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--green); color: white; padding: 12px 20px; border-radius: 10px; font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease; }
+    .toast.hidden { display: none; }
+    .toast.error { background: var(--red); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+    .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+    .stat { background: var(--green-light); border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 100px; }
+    .stat-num { font-size: 28px; font-weight: 700; color: var(--green); }
+    .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🛡️ פאנל אדמין — יורם 80</h1>
+  <a href="/">← חזרה לאתר</a>
+</div>
+
+<div class="container">
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num" id="stat-users">—</div><div class="stat-label">משתמשים רשומים</div></div>
+    <div class="stat"><div class="stat-num" id="stat-photos">—</div><div class="stat-label">תמונות</div></div>
+    <div class="stat"><div class="stat-num" id="stat-memories">—</div><div class="stat-label">זיכרונות</div></div>
+  </div>
+
+  <div class="section">
+    <h2>📸 תמונת יורם בעמוד הבית</h2>
+    <div class="hero-upload">
+      <img id="hero-preview" class="hero-preview" src="/uploads/yoram-hero.jpg" onerror="this.src=''" alt="יורם">
+      <div>
+        <input type="file" id="hero-file" accept="image/*" style="display:none" onchange="uploadHero(this)">
+        <button class="btn btn-green" onclick="document.getElementById('hero-file').click()">העלאת תמונה חדשה</button>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px">הקובץ יישמר כ-yoram-hero.jpg ויופיע בעמוד הבית</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>👥 משתמשים רשומים</h2>
+    <table id="users-table">
+      <thead><tr><th>#</th><th>שם</th><th>מייל</th><th>נרשם</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>🖼️ תמונות</h2>
+    <div class="photo-grid" id="photos-grid"></div>
+  </div>
+
+  <div class="section">
+    <h2>✍️ זיכרונות</h2>
+    <table id="memories-table">
+      <thead><tr><th>מחבר</th><th>אירוע</th><th>תוכן</th><th>תאריך</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script>
+const EVENT_LABELS = { seder:'🕍 ליל סדר', nknikyot:'🌭 נקניקיות', chef:'👨‍🍳 ארוחת שף' };
+
+async function load() {
+  const [users, photos, memories] = await Promise.all([
+    fetch('/api/admin/users').then(r=>r.json()),
+    fetch('/api/photos').then(r=>r.json()),
+    fetch('/api/memories').then(r=>r.json())
+  ]);
+
+  document.getElementById('stat-users').textContent = users.length;
+  document.getElementById('stat-photos').textContent = photos.length;
+  document.getElementById('stat-memories').textContent = memories.length;
+
+  const usersTbody = document.querySelector('#users-table tbody');
+  usersTbody.innerHTML = users.map((u,i) => `<tr><td>${i+1}</td><td>${u.name}</td><td>${u.email||'—'}</td><td>${new Date(u.created_at).toLocaleDateString('he-IL')}</td></tr>`).join('');
+
+  const grid = document.getElementById('photos-grid');
+  grid.innerHTML = photos.map(p => `
+    <div class="photo-item" id="pi-${p.id}">
+      <img src="/uploads/${p.filename}" alt="">
+      <div class="photo-item-body">
+        <strong>${p.uploader_name}</strong>
+        ${EVENT_LABELS[p.event_tag]||p.event_tag}
+        ${p.caption ? `<div>${p.caption}</div>` : ''}
+        <button class="del-btn" onclick="deletePhoto(${p.id})">🗑️ מחק</button>
+      </div>
+    </div>`).join('') || '<p style="color:var(--text-muted);font-size:14px">אין תמונות עדיין</p>';
+
+  const memTbody = document.querySelector('#memories-table tbody');
+  memTbody.innerHTML = memories.map(m => `<tr id="mi-${m.id}">
+    <td>${m.author_name}</td>
+    <td>${EVENT_LABELS[m.event_tag]||m.event_tag}</td>
+    <td style="max-width:300px">${m.content}</td>
+    <td>${new Date(m.created_at).toLocaleDateString('he-IL')}</td>
+    <td><button class="del-btn" onclick="deleteMemory(${m.id})">🗑️</button></td>
+  </tr>`).join('') || '<tr><td colspan="5" style="color:var(--text-muted)">אין זיכרונות עדיין</td></tr>';
+}
+
+async function uploadHero(input) {
+  const file = input.files[0]; if (!file) return;
+  const fd = new FormData(); fd.append('photo', file);
+  const r = await fetch('/api/admin/hero-photo', { method:'POST', body: fd });
+  if (r.ok) {
+    document.getElementById('hero-preview').src = '/uploads/yoram-hero.jpg?t=' + Date.now();
+    showToast('תמונת יורם עודכנה! ✅');
+  } else {
+    showToast('שגיאה בהעלאה', true);
+  }
+}
+
+async function deletePhoto(id) {
+  if (!confirm('למחוק תמונה זו?')) return;
+  const r = await fetch(`/api/photos/${id}`, { method:'DELETE' });
+  if (r.ok) { document.getElementById(`pi-${id}`)?.remove(); showToast('תמונה נמחקה'); load(); }
+}
+
+async function deleteMemory(id) {
+  if (!confirm('למחוק זיכרון זה?')) return;
+  const r = await fetch(`/api/memories/${id}`, { method:'DELETE' });
+  if (r.ok) { document.getElementById(`mi-${id}`)?.remove(); showToast('זיכרון נמחק'); load(); }
+}
+
+let toastTimer;
+function showToast(msg, isError=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = `toast${isError?' error':''}`;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.add('hidden'), 3000);
+}
+
+load();
+</script>
+</body>
+</html>
