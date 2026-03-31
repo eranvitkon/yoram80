@@ -51,6 +51,16 @@ db.exec(`
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (photo_id) REFERENCES photos(id)
   );
+
+  CREATE TABLE IF NOT EXISTS activity_reactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    activity_id TEXT NOT NULL,
+    emoji TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, activity_id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  );
 `);
 
 module.exports = db;

@@ -47,13 +47,13 @@ function broadcast(data) {
 function requireAuth(req, res, next) { if (req.session.userId) return next(); res.status(401).json({ error: 'נדרשת כניסה' }); }
 function requireAdmin(req, res, next) { if (req.session.isAdmin) return next(); res.status(403).json({ error: 'אין הרשאה' }); }
 
-// ── Secret admin route ────────────────────────────────────────────────────────
+// ── Secret admin ──────────────────────────────────────────────────────────────
 app.get('/eran', (req, res) => {
   req.session.isAdmin = true;
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-// ── Auth (name + email, no password) ─────────────────────────────────────────
+// ── Auth ──────────────────────────────────────────────────────────────────────
 app.post('/api/login', (req, res) => {
   const { name, email } = req.body;
   if (!name || !email) return res.status(400).json({ error: 'נא למלא שם ומייל' });
@@ -74,6 +74,56 @@ app.post('/api/logout', (req, res) => { req.session.destroy(); res.json({ succes
 app.get('/api/me', (req, res) => {
   if (!req.session.userId) return res.json({ loggedIn: false });
   res.json({ loggedIn: true, name: req.session.userName, isAdmin: req.session.isAdmin || false, userId: req.session.userId });
+});
+
+// ── Activity reactions ────────────────────────────────────────────────────────
+app.get('/api/reactions', (req, res) => {
+  const rows = db.prepare(`
+    SELECT activity_id, emoji, COUNT(*) as count
+    FROM activity_reactions GROUP BY activity_id, emoji
+  `).all();
+  // group by activity_id => { emoji: count }
+  const result = {};
+  rows.forEach(r => {
+    if (!result[r.activity_id]) result[r.activity_id] = {};
+    result[r.activity_id][r.emoji] = r.count;
+  });
+  res.json(result);
+});
+
+app.get('/api/reactions/mine', requireAuth, (req, res) => {
+  const rows = db.prepare('SELECT activity_id, emoji FROM activity_reactions WHERE user_id = ?').all(req.session.userId);
+  const result = {};
+  rows.forEach(r => { result[r.activity_id] = r.emoji; });
+  res.json(result);
+});
+
+app.post('/api/reactions/:activityId', requireAuth, (req, res) => {
+  const { activityId } = req.params;
+  const { emoji } = req.body;
+  const ALLOWED = ['❤️','🔥','😂','👏','🤩','😍','🙌','💪'];
+  if (!ALLOWED.includes(emoji)) return res.status(400).json({ error: 'אימוג\'י לא חוקי' });
+
+  const existing = db.prepare('SELECT * FROM activity_reactions WHERE user_id = ? AND activity_id = ?').get(req.session.userId, activityId);
+
+  if (existing && existing.emoji === emoji) {
+    // toggle off
+    db.prepare('DELETE FROM activity_reactions WHERE user_id = ? AND activity_id = ?').run(req.session.userId, activityId);
+  } else if (existing) {
+    // change emoji
+    db.prepare('UPDATE activity_reactions SET emoji = ? WHERE user_id = ? AND activity_id = ?').run(emoji, req.session.userId, activityId);
+  } else {
+    db.prepare('INSERT INTO activity_reactions (user_id, activity_id, emoji) VALUES (?, ?, ?)').run(req.session.userId, activityId, emoji);
+  }
+
+  // return updated counts for this activity
+  const counts = db.prepare('SELECT emoji, COUNT(*) as count FROM activity_reactions WHERE activity_id = ? GROUP BY emoji').all(activityId);
+  const countsMap = {};
+  counts.forEach(c => { countsMap[c.emoji] = c.count; });
+  const myEmoji = db.prepare('SELECT emoji FROM activity_reactions WHERE user_id = ? AND activity_id = ?').get(req.session.userId, activityId);
+
+  broadcast({ type: 'reaction_update', activityId, counts: countsMap });
+  res.json({ success: true, counts: countsMap, myEmoji: myEmoji?.emoji || null });
 });
 
 // ── Photos ────────────────────────────────────────────────────────────────────
